@@ -7,7 +7,7 @@
 body {
   width: 100%;
   min-height: 100vh;
-  background-color: #000;
+  background-color: #075600;
 	background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -125,6 +125,15 @@ body.bg-5 {
   margin-right: 20px;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chips li p{
+  position: absolute;
+  color: white;
 }
 
 .chips li:hover {

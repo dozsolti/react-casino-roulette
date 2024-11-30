@@ -14,7 +14,7 @@ import { hasOwn } from '../../utills';
 import { classNames } from '../../libs';
 
 import './RouletteTable.css';
-import { BetType, TableLayoutType } from './types';
+import { BetType, ChipIcons, TableLayoutType } from './types';
 
 export interface IOnBetParams {
   bet: keyof typeof ACTION_TYPES;
@@ -27,13 +27,16 @@ export interface IRouletteTableProps {
   bets: { [key: string]: BetType };
   isDebug?: boolean;
   layoutType?: TableLayoutType;
+  chipIcons: ChipIcons;
 }
 
 export const RouletteTable: FC<IRouletteTableProps> = ({
   onBet,
   bets,
-  isDebug,
+  chipIcons,
   layoutType = 'european',
+  
+  isDebug,
 }) => {
   const tableRef = useRef<HTMLDivElement>(null);
 
@@ -162,7 +165,7 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
   );
 
   const contextValue = useMemo(
-    () => ({ bets, onBetCatcherHover: handleBetCatcherHover }),
+    () => ({ bets, chipIcons, onBetCatcherHover: handleBetCatcherHover }),
     [bets, handleBetCatcherHover],
   );
 
@@ -173,8 +176,8 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
         ref={tableRef}
       >
         <section className="roulette-table-container-first">
-          <ZeroBets layoutType={layoutType}/>
-          <NumberBets layoutType={layoutType}/>
+          <ZeroBets layoutType={layoutType} />
+          <NumberBets layoutType={layoutType} />
           <Columns />
         </section>
         <section className="roulette-table-container-second">

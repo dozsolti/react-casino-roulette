@@ -1,5 +1,7 @@
 export type BetType = {
-    icon?: string;
+    amount: number;
 };
 
 export type TableLayoutType = 'american' | 'european';
+
+export type ChipIcons = { [key: number]: any };
