@@ -208,6 +208,7 @@ export const App = () => {
       </div>
       <div className="roulette-wrapper">
         <RouletteTable onBet={handleOnBet} bets={bets} isDebug={isDebug} />
+        <RouletteTable layoutType='european' onBet={handleOnBet} bets={bets} isDebug={isDebug} />
         <div className="menu">
           <ul className="chips">
             {Object.entries(chipsMap).map(([name, { icon }]) => (

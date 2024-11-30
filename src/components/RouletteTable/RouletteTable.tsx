@@ -174,7 +174,7 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
       >
         <section className="roulette-table-container-first">
           <ZeroBets layoutType={layoutType}/>
-          <NumberBets />
+          <NumberBets layoutType={layoutType}/>
           <Columns />
         </section>
         <section className="roulette-table-container-second">

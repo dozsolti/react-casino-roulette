@@ -99,12 +99,20 @@ function RenderSingleZero({ layoutType, bets }: { layoutType: TableLayoutType, b
       cName="split-up-bet-catcher-right"
       action={ACTION_TYPES.SPLIT}
       highlight={`0-2`}
-      chipPosition={'right-top-with-no-offset'}
+      chipPosition={layoutType === 'american' ? 'right-top-with-no-offset' : 'right-center'}
     />}
     {/* end chip */}
 
 
-
+    {/* Chips - 0-3*/}
+    {layoutType === 'european' && <ChipRenderer
+      cName="split-up-bet-catcher-right"
+      action={ACTION_TYPES.SPLIT}
+      highlight={`0-3`}
+      style={{ height: 85, top: 0, bottom: 'auto' }}
+      chipPosition={'right-top-with-offset'}
+    />}
+    {/* end chip */}
 
     {/* Chips - 0-1*/}
     {<ChipRenderer

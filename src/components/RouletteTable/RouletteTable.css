@@ -149,8 +149,8 @@
 }
 
 .zero-item:first-child {
-  border-bottom: 1px solid #fff;
-	margin-bottom: -1px;
+	border-bottom: 3px solid #fff;
+	margin-bottom: -3px;
 }
 
 .zero-item {
