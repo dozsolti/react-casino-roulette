@@ -30,6 +30,7 @@ export const Columns: FC = () => {
           highlight={x.action}
           betLabel={x.label}
           chipPosition='center'
+          key={x.action}
         />
       ))}
     </>

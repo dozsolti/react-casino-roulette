@@ -41,6 +41,7 @@ export const BottomBets: FC = () => {
           highlight={x.action}
           betLabel={x.label}
           chipPosition='center'
+          key={x.action}
         />
       ))}
     </>
