@@ -27,7 +27,7 @@ const chipIcons = {
 }
 
 const calcTotalBet = (bets) =>
-  Object.entries(bets).reduce((acc, [, value]) => acc + value.number, 0);
+  Object.entries(bets).reduce((acc, [, value]) => acc + value.amount, 0);
 
 export const App = () => {
   const [bets, setBets] = useState({});
