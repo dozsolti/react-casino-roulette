@@ -26,25 +26,6 @@ const chipIcons = {
   500: cyanChip,
 }
 
-const chipsMap = {
-  whiteChip: {
-    icon: whiteChip,
-    value: 1,
-  },
-  blueChip: {
-    icon: blueChip,
-    value: 10,
-  },
-  blackChip: {
-    icon: blackChip,
-    value: 100,
-  },
-  cyanChip: {
-    icon: cyanChip,
-    value: 500,
-  },
-};
-
 const calcTotalBet = (bets) =>
   Object.entries(bets).reduce((acc, [, value]) => acc + value.number, 0);
 
@@ -52,14 +33,14 @@ export const App = () => {
   const [bets, setBets] = useState({});
   const [betHistory, setBetHistory] = useState([]);
   const [isDebug, setIsDebug] = useState(false);
-  const [activeChip, setActiveChip] = useState(Object.keys(chipsMap)[0]);
+  const [activeChip, setActiveChip] = useState(Object.keys(chipIcons)[0]);
   const [shouldShowData, setShouldShowData] = useState(true);
 
   const [isRouletteWheelSpinning, setIsRouletteWheelSpinning] = useState(false);
   const [rouletteWheelStart, setRouletteWheelStart] = useState(false);
   const [rouletteWheelBet, setRouletteWheelBet] = useState('-1');
 
-  useEffect(() => {
+  /* useEffect(() => {
     const backgroundIndex = getRandomInt(0, 5);
     const backgroundClass = `bg-${backgroundIndex}`;
 
@@ -68,7 +49,7 @@ export const App = () => {
     return () => {
       document.body.classList.remove(backgroundClass);
     };
-  }, []);
+  }, []); */
 
   // you are here for
   useEffect(() => {
@@ -136,7 +117,7 @@ export const App = () => {
   };
 
   const addBet = (id) => {
-    const { value } = chipsMap[activeChip];
+    const value = Number(activeChip);
 
     setBetHistory((prevState) => [...prevState, { id, value }]);
 
@@ -220,21 +201,21 @@ export const App = () => {
           bets={bets}
           onBet={handleOnBet}
           chipIcons={chipIcons}
-          
+
           isDebug={isDebug}
         />
 
         <div className="menu">
           <ul className="chips">
-            {Object.entries(chipsMap).map(([name, { icon, value }]) => (
+            {Object.entries(chipIcons).map(([value, icon]) => (
               <li
-                key={name}
-                data-name={name}
-                className={activeChip === name ? 'active' : ''}
+                key={value}
+                data-name={value}
+                className={activeChip === value ? 'active' : ''}
                 onClick={handleChipChange}
               >
                 <img width={64} height={64} src={icon} alt="chip" />
-                {value}
+                <p >{value}</p>
               </li>
             ))}
           </ul>
