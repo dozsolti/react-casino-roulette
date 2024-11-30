@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { RouletteTable, RouletteWheel } from 'react-casino-roulette';
 import 'react-casino-roulette/dist/index.css';
 
@@ -47,7 +47,7 @@ export const App = () => {
   const [betHistory, setBetHistory] = useState([]);
   const [isDebug, setIsDebug] = useState(false);
   const [activeChip, setActiveChip] = useState(Object.keys(chipsMap)[0]);
-  const [shouldShowData, setShouldShowData] = useState(false);
+  const [shouldShowData, setShouldShowData] = useState(true);
 
   const [isRouletteWheelSpinning, setIsRouletteWheelSpinning] = useState(false);
   const [rouletteWheelStart, setRouletteWheelStart] = useState(false);
@@ -183,11 +183,19 @@ export const App = () => {
   };
 
   const totalBet = calcTotalBet(bets);
+  const formattedData = useMemo(() => JSON.stringify(
+    Object
+      .entries(bets)
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .map(bet => {
+        return `${bet[0]} : ${bet[1].number}`;
+      })
+    , null, 1).slice(1,-1), [bets])
 
   return (
     <div>
       <h1 className="heading">React Casino Roulette</h1>
-      <div className="roulette-wheel-wrapper">
+      {/* <div className="roulette-wheel-wrapper">
         <RouletteWheel
           start={rouletteWheelStart}
           winningBet={rouletteWheelBet}
@@ -201,11 +209,8 @@ export const App = () => {
           >
             Let&apos;s go
           </button>
-          {/* <button type="button" onClick={handleDoSpin}>
-            Spin
-          </button> */}
         </div>
-      </div>
+      </div> */}
       <div className="roulette-wrapper">
         <RouletteTable layoutType='european' onBet={handleOnBet} bets={bets} isDebug={isDebug} />
         <div className="menu">
@@ -241,7 +246,7 @@ export const App = () => {
         </div>
         <div>
           {shouldShowData === true && (
-            <p className="data">{JSON.stringify(bets, null, 2)}</p>
+            <pre className="data">{formattedData}</pre>
           )}
         </div>
         <div style={{ height: 50 }} />
