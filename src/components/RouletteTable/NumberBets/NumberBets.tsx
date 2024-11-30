@@ -6,6 +6,7 @@ import { RouletteTableContext } from '../../../context';
 
 import config from '../../../config/table.json';
 import {
+  findChipIcon,
   shouldRenderBottomCatcher,
   shouldRenderChip,
   shouldRenderCornerBetCatcher,
@@ -24,7 +25,7 @@ interface INumberBetsProps {
 }
 
 export const NumberBets: FC<INumberBetsProps> = ({ layoutType }) => {
-  const { bets } = useContext(RouletteTableContext);
+  const { bets, chipIcons } = useContext(RouletteTableContext);
 
   return (
     <>
@@ -81,7 +82,7 @@ export const NumberBets: FC<INumberBetsProps> = ({ layoutType }) => {
           <div className="value">{number}</div>
 
           {shouldRenderChip(`${number}`, bets) && (
-            <Chip position="center" bet={bets[number]} />
+            <Chip position="center" bet={bets[number]} icon={findChipIcon(bets[number], chipIcons)} />
           )}
 
           {/* Chips between two numbers horizontally - 11-14 - split */}

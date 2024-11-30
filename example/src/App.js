@@ -114,17 +114,15 @@ export const App = () => {
       const state = JSON.parse(JSON.stringify(prevState));
 
       const lastBet = betHistory[betHistory.length - 1];
-      const prevIcon = betHistory[betHistory.length - 2]?.icon;
 
       const { id: lastBetId, value } = lastBet;
 
-      if (state[lastBetId].number === 1) {
+      if (state[lastBetId].amount === 1) {
         delete state[lastBetId];
         return state;
       }
 
-      state[lastBetId].icon = prevIcon;
-      state[lastBetId].number -= value;
+      state[lastBetId].amount -= value;
 
       return state;
     });
@@ -138,9 +136,9 @@ export const App = () => {
   };
 
   const addBet = (id) => {
-    const { icon, value } = chipsMap[activeChip];
+    const { value } = chipsMap[activeChip];
 
-    setBetHistory((prevState) => [...prevState, { id, icon, value }]);
+    setBetHistory((prevState) => [...prevState, { id, value }]);
 
     setBets((prevState) => {
       const state = JSON.parse(JSON.stringify(prevState));
@@ -148,15 +146,13 @@ export const App = () => {
       if (state[id] !== undefined) {
         state[id] = {
           ...state[id],
-          icon,
-          number: state[id].number + value,
+          amount: state[id].amount + value,
         };
         return state;
       }
 
       state[id] = {
-        icon,
-        number: value,
+        amount: value,
       };
 
       return state;
@@ -194,7 +190,7 @@ export const App = () => {
       .entries(bets)
       .sort((a, b) => a[0].localeCompare(b[0]))
       .map(bet => {
-        return `${bet[0]} : ${bet[1].number}`;
+        return `${bet[0]} : ${bet[1].amount}`;
       })
     , null, 1).slice(1, -1), [bets])
 

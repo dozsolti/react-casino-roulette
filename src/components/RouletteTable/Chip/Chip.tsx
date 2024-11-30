@@ -22,8 +22,7 @@ export interface IChipProps {
 }
 
 export const Chip: FC<IChipProps> = ({ position, icon, bet }) => {
-  if (!icon)
-    icon = bet?.icon;
+  if (!bet) return null;
 
   return (
     <div
@@ -32,7 +31,7 @@ export const Chip: FC<IChipProps> = ({ position, icon, bet }) => {
         ... (icon ? { backgroundImage: `url("${icon}")` } : {})
       }}
     >
-      {bet?.number}
+      {bet.amount}
     </div >
   );
 };

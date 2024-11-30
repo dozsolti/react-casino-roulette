@@ -11,7 +11,7 @@ export const findChipIcon = (bet: BetType, chipIcons: ChipIcons) => {
   if (icons.length == 1) return icons[0].icon;
 
   let i = 0;
-  while (i < icons.length && icons[i].minAmount <= bet.number)
+  while (i < icons.length && icons[i].minAmount <= bet.amount)
     i++;
 
   if (i >= icons.length)

@@ -1,6 +1,5 @@
 export type BetType = {
-    icon?: string;
-    number: number;
+    amount: number;
 };
 
 export type TableLayoutType = 'american' | 'european';

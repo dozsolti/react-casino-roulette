@@ -74,7 +74,7 @@ describe('shouldRenderSixLineBetCatcher', () => {
 });
 
 describe('shouldRenderChip', () => {
-  const data = { '1': { icon: '/path/to/icon.png', number: 1 } };
+  const data = { '1': { amount: 1 } };
 
   it('should return true for when we have a bet', () => {
     expect(shouldRenderChip('1', data)).toBe(true);

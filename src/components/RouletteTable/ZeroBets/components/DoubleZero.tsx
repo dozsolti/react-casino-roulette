@@ -1,12 +1,12 @@
 import React from "react";
 import { ACTION_TYPES } from "../../../../constants";
 import { IRouletteTableContextProps } from "../../../../context";
-import { shouldRenderChip } from "../../../../helpers";
+import { findChipIcon, shouldRenderChip } from "../../../../helpers";
 import { Chip } from "../../Chip";
-import { TableLayoutType } from "../../types";
+import { ChipIcons, TableLayoutType } from "../../types";
 import { ChipRenderer } from "../../utils/ChipRenderer";
 
-export function DoubleZero({ layoutType, bets }: { layoutType: TableLayoutType, bets: IRouletteTableContextProps['bets'] }) {
+export function DoubleZero({ layoutType, bets, chipIcons }: { layoutType: TableLayoutType, bets: IRouletteTableContextProps['bets'], chipIcons: ChipIcons }) {
     return (<div
         key={`zero-item-00`}
         className={`zero-item ${layoutType === 'european' ? 'single-zero' : ''}`}
@@ -41,7 +41,7 @@ export function DoubleZero({ layoutType, bets }: { layoutType: TableLayoutType, 
 
         <div className="value">00</div>
         {shouldRenderChip('00', bets) && (
-            <Chip position="center" bet={bets['00']} />
+            <Chip position="center" bet={bets['00']} icon={findChipIcon(bets['00'], chipIcons)} />
         )}
     </div>)
 }
