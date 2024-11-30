@@ -149,8 +149,8 @@
 }
 
 .zero-item:first-child {
-  border-bottom: 1px solid #fff;
-	margin-bottom: -1px;
+	border-bottom: 3px solid #fff;
+	margin-bottom: -3px;
 }
 
 .zero-item {
@@ -159,7 +159,12 @@
 	/* padding-top: 110px;
 	padding-bottom: 111px; */
   padding-top: 50px;
-  padding-bottom: 36.8px;
+  padding-bottom: 36.6px;
+}
+
+.zero-item.single-zero{
+	padding-top: 100px;
+    padding-bottom: 96.4px;
 }
 
 .item-hover,

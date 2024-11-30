@@ -14,6 +14,7 @@ import { hasOwn } from '../../utills';
 import { classNames } from '../../libs';
 
 import './RouletteTable.css';
+import { BetType, TableLayoutType } from './types';
 
 export interface IOnBetParams {
   bet: keyof typeof ACTION_TYPES;
@@ -21,20 +22,18 @@ export interface IOnBetParams {
   id: string;
 }
 
-export type BetType = {
-  icon?: string;
-};
-
 export interface IRouletteTableProps {
   onBet: (params: IOnBetParams) => void;
   bets: { [key: string]: BetType };
   isDebug?: boolean;
+  layoutType?: TableLayoutType;
 }
 
 export const RouletteTable: FC<IRouletteTableProps> = ({
   onBet,
   bets,
   isDebug,
+  layoutType = 'european',
 }) => {
   const tableRef = useRef<HTMLDivElement>(null);
 
@@ -174,8 +173,8 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
         ref={tableRef}
       >
         <section className="roulette-table-container-first">
-          <ZeroBets />
-          <NumberBets />
+          <ZeroBets layoutType={layoutType}/>
+          <NumberBets layoutType={layoutType}/>
           <Columns />
         </section>
         <section className="roulette-table-container-second">
@@ -191,4 +190,5 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
 
 RouletteTable.defaultProps = {
   isDebug: false,
+  layoutType: 'european',
 };

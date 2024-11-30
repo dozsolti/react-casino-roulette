@@ -17,128 +17,58 @@ import {
   findChipIcon,
 } from '../../../helpers';
 import { ACTION_TYPES } from '../../../constants';
+import { ChipRenderer } from '../utils/ChipRenderer';
+import { TableLayoutType } from '../types';
 
-export const NumberBets: FC = () => {
+const NUMBERS = Array.from({ length: 36 }, (_, i) => i + 1);
+
+interface INumberBetsProps {
+  layoutType: TableLayoutType;
+}
+
+export const NumberBets: FC<INumberBetsProps> = ({ layoutType }) => {
   const { onBetCatcherHover, bets } = useContext(RouletteTableContext);
 
   return (
     <>
-      {Array.from({ length: 36 }, (_, i) => i + 1).map((number) => (
+      {NUMBERS.map((number) => (
         <div
           key={number}
           data-action={ACTION_TYPES.STRAIGHT_UP}
           data-bet={`${number}`}
-          className={`${
-            config.RED.includes(number) ? 'red-item' : 'black-item'
-          }`}
+          className={`${config.RED.includes(number) ? 'red-item' : 'black-item'
+            }`}
         >
-          {/* start chip */}
-          {shouldRenderCornerBetCatcher(number) && (
-            <>
-              <div
-                className="corner-bet-catcher"
-                onMouseEnter={onBetCatcherHover}
-                onMouseLeave={onBetCatcherHover}
-                data-action={ACTION_TYPES.CORNER}
-                data-highlight={`${number}-${number + 1}-${number + 3}-${
-                  number + 4
-                }`}
-              />
-              {shouldRenderChip(
-                `${number}-${number + 1}-${number + 3}-${number + 4}`,
-                bets,
-              ) === true && (
-                <Chip
-                  position="right-top"
-                  icon={findChipIcon(
-                    `${number}-${number + 1}-${number + 3}-${number + 4}`,
-                    bets,
-                  )}
-                />
-              )}
-            </>
-          )}
+          {/* Chips - 4 numbers "2-3-5-6","5-6-8-9" - corner  */}
+          {shouldRenderCornerBetCatcher(number) && <ChipRenderer
+            cName="corner-bet-catcher"
+            action={ACTION_TYPES.CORNER}
+            highlight={`${number}-${number + 1}-${number + 3}-${number + 4}`}
+            chipPosition={'right-top'}
+          />
+          }
           {/* end chip */}
-          {/* start chip */}
-          {shouldRenderTopRightDoubleStreetCatcher(number) && (
-            <>
-              <div
-                className="double-street-catcher-top-right"
-                onMouseEnter={onBetCatcherHover}
-                onMouseLeave={onBetCatcherHover}
-                data-action={ACTION_TYPES.DOUBLE_STREET}
-                data-highlight={`${number}-${number - 1}-${number - 2}-${
-                  number + 3
-                }-${number + 2}-${number + 1}`}
-              />
-              {shouldRenderChip(
-                `${number}-${number - 1}-${number - 2}-${number + 3}-${
-                  number + 2
-                }-${number + 1}`,
-                bets,
-              ) === true && (
-                <Chip
-                  position="right-top"
-                  icon={findChipIcon(
-                    `${number}-${number - 1}-${number - 2}-${number + 3}-${
-                      number + 2
-                    }-${number + 1}`,
-                    bets,
-                  )}
-                />
-              )}
-            </>
+
+          {(number === 1) && (
+            <ChipRenderer
+              cName="spleet-bet-catcher"
+              action={ACTION_TYPES.STREET}
+              highlight={'0-1-2'}
+              chipPosition={'left-top'}
+              style={{ zIndex: 12 }}
+            />
           )}
-          {/* end chip */}
-          {/* start chip */}
-          {shouldRenderTopStreetCatcher(number) && (
-            <>
-              <div
-                className="split-up-bet-catcher-top"
-                onMouseEnter={onBetCatcherHover}
-                onMouseLeave={onBetCatcherHover}
-                data-action={ACTION_TYPES.STREET}
-                data-highlight={`${number}-${number - 1}-${number - 2}`}
-              />
-              {shouldRenderChip(
-                `${number}-${number - 1}-${number - 2}`,
-                bets,
-              ) === true && (
-                <Chip
-                  position="center-top"
-                  icon={findChipIcon(
-                    `${number}-${number - 1}-${number - 2}`,
-                    bets,
-                  )}
-                />
-              )}
-            </>
+
+          {(number === 2) && (
+            <ChipRenderer
+              cName="spleet-bet-catcher"
+              action={ACTION_TYPES.STREET}
+              highlight={layoutType === 'american' ? `00-2-3` : '0-2-3'}
+              chipPosition={'left-top'}
+              style={{ zIndex: 12 }}
+            />
           )}
-          {/* end chip */}
-          {(number === 1 || number === 2) && (
-            <>
-              <div
-                className="spleet-bet-catcher"
-                onMouseEnter={onBetCatcherHover}
-                onMouseLeave={onBetCatcherHover}
-                data-action={ACTION_TYPES.STREET}
-                data-highlight={`${number === 1 ? '0-1-2' : '00-2-3'}`}
-                style={{ zIndex: 12 }}
-              />
-              {shouldRenderChip(
-                `${number === 1 ? '0-1-2' : '00-2-3'}`,
-                bets,
-              ) === true && (
-                <Chip
-                  position="left-top"
-                  icon={findChipIcon(
-                    `${number === 1 ? '0-1-2' : '00-2-3'}`,
-                    bets,
-                  )}
-                />
-              )}
-            </>
-          )}
+
           {shouldRenderTopCatcher(number) && (
             <>
               <div
@@ -190,14 +120,14 @@ export const NumberBets: FC = () => {
                 `${number}-${number + 1}-${number + 2}`,
                 bets,
               ) === true && (
-                <Chip
-                  position="center-bottom"
-                  icon={findChipIcon(
-                    `${number}-${number + 1}-${number + 2}`,
-                    bets,
-                  )}
-                />
-              )}
+                  <Chip
+                    position="center-bottom"
+                    icon={findChipIcon(
+                      `${number}-${number + 1}-${number + 2}`,
+                      bets,
+                    )}
+                  />
+                )}
             </>
           )}
           {shouldRenderSixLineBetCatcher(number) && (
@@ -207,26 +137,23 @@ export const NumberBets: FC = () => {
                 onMouseEnter={onBetCatcherHover}
                 onMouseLeave={onBetCatcherHover}
                 data-action={ACTION_TYPES.DOUBLE_STREET}
-                data-highlight={`${number}-${number + 1}-${number + 2}-${
-                  number + 3
-                }-${number + 4}-${number + 5}`}
+                data-highlight={`${number}-${number + 1}-${number + 2}-${number + 3
+                  }-${number + 4}-${number + 5}`}
               />
               {shouldRenderChip(
-                `${number}-${number + 1}-${number + 2}-${number + 3}-${
-                  number + 4
+                `${number}-${number + 1}-${number + 2}-${number + 3}-${number + 4
                 }-${number + 5}`,
                 bets,
               ) === true && (
-                <Chip
-                  position="right-bottom"
-                  icon={findChipIcon(
-                    `${number}-${number + 1}-${number + 2}-${number + 3}-${
-                      number + 4
-                    }-${number + 5}`,
-                    bets,
-                  )}
-                />
-              )}
+                  <Chip
+                    position="right-bottom"
+                    icon={findChipIcon(
+                      `${number}-${number + 1}-${number + 2}-${number + 3}-${number + 4
+                      }-${number + 5}`,
+                      bets,
+                    )}
+                  />
+                )}
             </>
           )}
         </div>
