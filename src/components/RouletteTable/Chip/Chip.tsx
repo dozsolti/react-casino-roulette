@@ -17,7 +17,7 @@ export interface IChipProps {
   | 'center-bottom'
   | 'left-top'
   | 'right-center';
-  icon?: string;
+  icon?: any;
   bet?: IRouletteTableProps['bets'][string];
 }
 

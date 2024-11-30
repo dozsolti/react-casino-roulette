@@ -1,5 +1,5 @@
 import React, { ReactNode, useContext } from "react";
-import { shouldRenderChip } from "../../../helpers";
+import { findChipIcon, shouldRenderChip } from "../../../helpers";
 import { Chip } from "../Chip";
 import { RouletteTableContext } from "../../../context";
 
@@ -14,7 +14,9 @@ interface ChipRendererProps {
 }
 
 export function ChipRenderer({ cName, action, highlight, style = {}, chipPosition = '', hideChips = false, betLabel = '' }: ChipRendererProps) {
-    const { onBetCatcherHover, bets } = useContext(RouletteTableContext);
+    const { onBetCatcherHover, bets, chipIcons } = useContext(RouletteTableContext);
+
+    const betIcon = findChipIcon(bets[highlight], chipIcons)
 
     if (betLabel)
         return (
@@ -31,6 +33,7 @@ export function ChipRenderer({ cName, action, highlight, style = {}, chipPositio
                     <Chip
                         position={chipPosition}
                         bet={bets[highlight]}
+                        icon={betIcon}
                     />
                 )}
             </div>
@@ -50,6 +53,7 @@ export function ChipRenderer({ cName, action, highlight, style = {}, chipPositio
                 <Chip
                     position={chipPosition}
                     bet={bets[highlight]}
+                    icon={betIcon}
                 />
             )}
         </>

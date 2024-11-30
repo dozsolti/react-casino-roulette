@@ -19,6 +19,12 @@ const API = {
     return getRandomRouletteWinBet();
   },
 };
+const chipIcons = {
+  1: whiteChip,
+  10: blueChip,
+  100: blackChip,
+  500: cyanChip,
+}
 
 const chipsMap = {
   whiteChip: {
@@ -212,7 +218,16 @@ export const App = () => {
         </div>
       </div> */}
       <div className="roulette-wrapper">
-        <RouletteTable layoutType='american' onBet={handleOnBet} bets={bets} isDebug={isDebug} />
+
+        <RouletteTable
+          layoutType='american'
+          bets={bets}
+          onBet={handleOnBet}
+          chipIcons={chipIcons}
+          
+          isDebug={isDebug}
+        />
+
         <div className="menu">
           <ul className="chips">
             {Object.entries(chipsMap).map(([name, { icon, value }]) => (

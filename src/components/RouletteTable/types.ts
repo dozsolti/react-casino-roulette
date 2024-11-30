@@ -4,3 +4,5 @@ export type BetType = {
 };
 
 export type TableLayoutType = 'american' | 'european';
+
+export type ChipIcons = { [key: number]: any };
