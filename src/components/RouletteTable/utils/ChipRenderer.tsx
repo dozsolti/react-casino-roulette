@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { shouldRenderChip, findChipIcon } from "../../../helpers";
+import { shouldRenderChip } from "../../../helpers";
 import { Chip } from "../Chip";
 import { RouletteTableContext } from "../../../context";
 
@@ -28,7 +28,7 @@ export function ChipRenderer({ cName, action, highlight, style = {}, chipPositio
             {!hideChips && shouldRenderChip(highlight, bets) === true && (
                 <Chip
                     position={chipPosition}
-                    icon={findChipIcon(highlight, bets)}
+                    bet={bets[highlight]}
                 />
             )}
         </>

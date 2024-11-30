@@ -7,10 +7,10 @@ import 'react-casino-roulette/dist/index.css';
 
 import { getRandomInt } from './utills';
 import { getRandomRouletteWinBet } from './helpers';
-import whiteChip from '../public/images/chips/white-chip.png';
-import blueChip from '../public/images/chips/blue-chip.png';
-import blackChip from '../public/images/chips/black-chip.png';
-import cyanChip from '../public/images/chips/cyan-chip.png';
+import whiteChip from '../public/images/blank-chips/white-chip.png';
+import blueChip from '../public/images/blank-chips/blue-chip.png';
+import blackChip from '../public/images/blank-chips/black-chip.png';
+import cyanChip from '../public/images/blank-chips/cyan-chip.png';
 
 import './App.css';
 
@@ -190,7 +190,7 @@ export const App = () => {
       .map(bet => {
         return `${bet[0]} : ${bet[1].number}`;
       })
-    , null, 1).slice(1,-1), [bets])
+    , null, 1).slice(1, -1), [bets])
 
   return (
     <div>
@@ -212,10 +212,10 @@ export const App = () => {
         </div>
       </div> */}
       <div className="roulette-wrapper">
-        <RouletteTable layoutType='european' onBet={handleOnBet} bets={bets} isDebug={isDebug} />
+        <RouletteTable layoutType='american' onBet={handleOnBet} bets={bets} isDebug={isDebug} />
         <div className="menu">
           <ul className="chips">
-            {Object.entries(chipsMap).map(([name, { icon }]) => (
+            {Object.entries(chipsMap).map(([name, { icon, value }]) => (
               <li
                 key={name}
                 data-name={name}
@@ -223,6 +223,7 @@ export const App = () => {
                 onClick={handleChipChange}
               >
                 <img width={64} height={64} src={icon} alt="chip" />
+                {value}
               </li>
             ))}
           </ul>

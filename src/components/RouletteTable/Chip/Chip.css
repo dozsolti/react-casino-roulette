@@ -18,6 +18,10 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+
+  font-size: 60%;
+  pointer-events: none;
+  user-select: none;
 }
 
 .chip.center {
