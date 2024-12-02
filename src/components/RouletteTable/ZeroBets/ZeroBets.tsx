@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import type { FC } from 'react';
 
 import { RouletteTableContext } from '../../../context';
-import { TableLayoutType } from '../types';
+import { TableLayoutType } from '../../../types';
 import { DoubleZero, SingleZero } from './components';
 
 interface IZeroBetsProps {

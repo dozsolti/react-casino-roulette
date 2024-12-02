@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import type { MouseEvent } from 'react';
 
 import type { IRouletteTableProps } from '../components/RouletteTable';
-import { ChipIcons } from '../components/RouletteTable/types';
+import { ChipIcons } from '../types';
 
 export interface IRouletteTableContextProps {
   bets: IRouletteTableProps['bets'];

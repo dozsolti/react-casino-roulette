@@ -1,4 +1,4 @@
-import { BetType, ChipIcons } from '../../components/RouletteTable/types';
+import { BetType, ChipIcons } from '../../types';
 
 export const findChipIcon = (bet: BetType, chipIcons: ChipIcons) => {
   if (!bet) return null;

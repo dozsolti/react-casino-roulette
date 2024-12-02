@@ -16,7 +16,7 @@ import {
 } from '../../../helpers';
 import { ACTION_TYPES } from '../../../constants';
 import { ChipRenderer } from '../utils/ChipRenderer';
-import { TableLayoutType } from '../types';
+import { TableLayoutType } from '../../../types';
 
 const NUMBERS = Array.from({ length: 36 }, (_, i) => i + 1);
 

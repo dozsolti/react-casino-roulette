@@ -3,7 +3,7 @@ import { ACTION_TYPES } from "../../../../constants";
 import { IRouletteTableContextProps } from "../../../../context";
 import { findChipIcon, shouldRenderChip } from "../../../../helpers";
 import { Chip } from "../../Chip";
-import { ChipIcons, TableLayoutType } from "../../types";
+import { ChipIcons, TableLayoutType } from "../../../../types";
 import { ChipRenderer } from "../../utils/ChipRenderer";
 
 export function SingleZero({ layoutType, bets, chipIcons }: { layoutType: TableLayoutType, bets: IRouletteTableContextProps['bets'], chipIcons: ChipIcons }) {

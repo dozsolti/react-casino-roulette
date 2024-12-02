@@ -14,7 +14,7 @@ import { hasOwn } from '../../utills';
 import { classNames } from '../../libs';
 
 import './RouletteTable.css';
-import { BetType, ChipIcons, TableLayoutType } from './types';
+import { BetType, ChipIcons, TableLayoutType } from '../../types';
 
 export interface IOnBetParams {
   bet: keyof typeof ACTION_TYPES;
