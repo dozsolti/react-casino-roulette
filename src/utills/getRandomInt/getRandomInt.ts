@@ -7,3 +7,8 @@ export const getRandomInt = (minNumber: number, maxNumber: number) => {
 
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+export const getRandomRange = (min: number, max: number) => {
+  return Math.random() * (max - min + 1) + min;
+};
+

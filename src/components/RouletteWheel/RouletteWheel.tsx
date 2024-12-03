@@ -2,23 +2,27 @@ import React, { useEffect, useState, useRef } from 'react';
 import type { FC } from 'react';
 
 import config from '../../config/table.json';
-import { getWheelNumbers } from '../../helpers';
+
 import { classNames } from '../../libs';
 
 import './RouletteWheel.css';
 
+import { RouletteLayoutType } from '../../types';
+import { calculateDefaultRotation, calculateSpinToRotation, getWheelNumbers } from '../../helpers';
+
 const availableWinningBets = [
   ...config['1_TO_18'],
   ...config['19_TO_36'],
-  ...['-1', '0', '00'],
+  ...['-1', '0'],
 ].map((bet) => `${bet}`);
 
+//#endregion
 export interface IRouletteWheelProps {
   start: boolean;
   winningBet: (typeof availableWinningBets)[number];
   onSpinningEnd?: () => void;
   withAnimation?: boolean;
-  addRest?: boolean;
+  layoutType?: RouletteLayoutType;
 }
 
 export const RouletteWheel: FC<IRouletteWheelProps> = ({
@@ -26,25 +30,21 @@ export const RouletteWheel: FC<IRouletteWheelProps> = ({
   winningBet,
   onSpinningEnd,
   withAnimation,
-  addRest,
+  layoutType = 'european',
 }) => {
   const [wheelNumbers, setWheelNumbers] = useState<string[]>([]);
 
   const innerRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    setWheelNumbers(getWheelNumbers());
-  }, []);
+    setWheelNumbers(getWheelNumbers(layoutType));
+  }, [layoutType]);
 
   useEffect(() => {
     const currentInnerRef = innerRef.current;
 
     if (winningBet === '-1' || currentInnerRef === null || start === false) {
       return;
-    }
-
-    if (addRest === true) {
-      currentInnerRef.classList.remove('rest');
     }
 
     currentInnerRef.removeAttribute('data-spintoindex');
@@ -54,13 +54,13 @@ export const RouletteWheel: FC<IRouletteWheelProps> = ({
     setTimeout(() => {
       currentInnerRef.setAttribute('data-spintoindex', `${betIndex}`);
 
-      setTimeout(() => {
-        if (addRest === true) {
-          currentInnerRef.classList.add('rest');
-        }
+      let spins = 3;
+      currentInnerRef.style.setProperty('--wheel-rotation-duration', spins + `s`);
+      currentInnerRef.style.setProperty('--wheel-rotation', calculateSpinToRotation(layoutType, betIndex, spins) + `deg`);
 
+      setTimeout(() => {
         onSpinningEnd?.();
-      }, 9000);
+      }, spins * 1000);
     }, 100);
     // we're ignoring only the onSpinningEnd onSpinningEnd dep
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -73,12 +73,15 @@ export const RouletteWheel: FC<IRouletteWheelProps> = ({
           'with-animation': withAnimation,
         })}
       >
-        <ul className="roulette-wheel-inner" ref={innerRef}>
-          {wheelNumbers.map((number) => (
+        <ul className={`roulette-wheel-inner ${layoutType}`} ref={innerRef}>
+          {wheelNumbers.map((number, index) => (
             <li
               key={`wheel-${number}`}
               data-bet={number}
               className="roulette-wheel-bet-number"
+              style={{
+                transform: `rotateZ(${calculateDefaultRotation(layoutType, index)}deg)`,
+              }}
             >
               <label htmlFor={`wheel-pit-${number}`}>
                 <input
@@ -100,5 +103,5 @@ export const RouletteWheel: FC<IRouletteWheelProps> = ({
 RouletteWheel.defaultProps = {
   onSpinningEnd: () => undefined,
   withAnimation: true,
-  addRest: true,
+  layoutType: 'european',
 };
