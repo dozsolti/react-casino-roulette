@@ -24,8 +24,7 @@
   border-radius: 50%;
   position: relative;
 }
-
-.roulette-wheel-plate.with-animation {
+.roulette-wheel-plate.automatic-spinning{
   animation: rotate var(--spinningAnimationSpeed) infinite linear;
 }
 
@@ -140,7 +139,7 @@
 
 .roulette-wheel-inner[data-spinToIndex]::before{
   transition-property: transform;
-  transition-timing-function: ease-out;
+  transition-timing-function: var(--wheel-rotation-function);
   transition-duration: var(--wheel-rotation-duration);
 
   content: '\2022';

@@ -1,79 +1,67 @@
 import React, { useEffect, useState, useRef } from 'react';
-import type { FC } from 'react';
-
-import config from '../../config/table.json';
-
+import { calculateDefaultRotation, calculateSpinToRotation, getWheelNumbers } from '../../helpers';
 import { classNames } from '../../libs';
 
 import './RouletteWheel.css';
+import { IRouletteWheelProps } from '../../types';
 
-import { RouletteLayoutType } from '../../types';
-import { calculateDefaultRotation, calculateSpinToRotation, getWheelNumbers } from '../../helpers';
-
-const availableWinningBets = [
-  ...config['1_TO_18'],
-  ...config['19_TO_36'],
-  ...['-1', '0'],
-].map((bet) => `${bet}`);
-
-//#endregion
-export interface IRouletteWheelProps {
-  start: boolean;
-  winningBet: (typeof availableWinningBets)[number];
-  onSpinningEnd?: () => void;
-  withAnimation?: boolean;
-  layoutType?: RouletteLayoutType;
-}
-
-export const RouletteWheel: FC<IRouletteWheelProps> = ({
+export const RouletteWheel: React.FC<IRouletteWheelProps> = ({
   start,
   winningBet,
   onSpinningEnd,
-  withAnimation,
+  
   layoutType = 'european',
+  automaticSpinning = true,
+
+  spinLaps = 3,
+  spinDuration = 3 * 1000,
+  spinEaseFunction = 'ease-out',
 }) => {
+
   const [wheelNumbers, setWheelNumbers] = useState<string[]>([]);
 
-  const innerRef = useRef<HTMLUListElement>(null);
+  const numberListRef = useRef<HTMLUListElement>(null);
+
+  function doSpin() {
+    const listElement = numberListRef.current;
+
+    if (listElement == null) return;
+
+    listElement.removeAttribute('data-spintoindex');
+
+    const betIndex = wheelNumbers.indexOf(winningBet);
+
+    // Wait a bit for the ball to reset it's state. Otherwise the spinning will continue from the current position.
+    setTimeout(() => {
+      listElement.setAttribute('data-spintoindex', `${betIndex}`);
+
+      listElement.style.setProperty('--wheel-rotation-function', spinEaseFunction);
+      listElement.style.setProperty('--wheel-rotation-duration', spinDuration + 'ms');
+      listElement.style.setProperty('--wheel-rotation', calculateSpinToRotation(layoutType, betIndex, spinLaps) + 'deg');
+
+      setTimeout(() => {
+        onSpinningEnd?.();
+      }, spinDuration);
+    }, 100);
+
+  }
 
   useEffect(() => {
     setWheelNumbers(getWheelNumbers(layoutType));
   }, [layoutType]);
 
   useEffect(() => {
-    const currentInnerRef = innerRef.current;
-
-    if (winningBet === '-1' || currentInnerRef === null || start === false) {
+    if (winningBet === '-1' || start === false) {
       return;
     }
 
-    currentInnerRef.removeAttribute('data-spintoindex');
-
-    const betIndex = wheelNumbers.indexOf(winningBet);
-
-    setTimeout(() => {
-      currentInnerRef.setAttribute('data-spintoindex', `${betIndex}`);
-
-      let spins = 3;
-      currentInnerRef.style.setProperty('--wheel-rotation-duration', spins + `s`);
-      currentInnerRef.style.setProperty('--wheel-rotation', calculateSpinToRotation(layoutType, betIndex, spins) + `deg`);
-
-      setTimeout(() => {
-        onSpinningEnd?.();
-      }, spins * 1000);
-    }, 100);
-    // we're ignoring only the onSpinningEnd onSpinningEnd dep
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    doSpin();
   }, [winningBet, start]);
 
   return (
     <div className="roulette-wheel-container">
-      <div
-        className={classNames('roulette-wheel-plate', {
-          'with-animation': withAnimation,
-        })}
-      >
-        <ul className={`roulette-wheel-inner ${layoutType}`} ref={innerRef}>
+      <div className={classNames('roulette-wheel-plate', { 'automatic-spinning': automaticSpinning })}>
+        <ul className={`roulette-wheel-inner ${layoutType}`} ref={numberListRef}>
           {wheelNumbers.map((number, index) => (
             <li
               key={`wheel-${number}`}
@@ -102,6 +90,9 @@ export const RouletteWheel: FC<IRouletteWheelProps> = ({
 
 RouletteWheel.defaultProps = {
   onSpinningEnd: () => undefined,
-  withAnimation: true,
   layoutType: 'european',
+  spinLaps: 3,
+  spinDuration: 3 * 1000,
+  automaticSpinning: true,
+  spinEaseFunction: 'ease-out',
 };
