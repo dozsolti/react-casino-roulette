@@ -39,6 +39,7 @@ export const App = () => {
   const [isRouletteWheelSpinning, setIsRouletteWheelSpinning] = useState(false);
   const [rouletteWheelStart, setRouletteWheelStart] = useState(false);
   const [rouletteWheelBet, setRouletteWheelBet] = useState('-1');
+  const [layoutType, setLayoutType] = useState('american')
 
   /* useEffect(() => {
     const backgroundIndex = getRandomInt(0, 5);
@@ -85,6 +86,9 @@ export const App = () => {
   };
   // end you are here for
 
+  const toggleLayoutType = () => {
+    setLayoutType(t => t === 'european' ? 'american' : 'european')
+  }
   const undoLastBet = () => {
     if (betHistory.length === 0) {
       console.error('Nothing to undo');
@@ -178,8 +182,9 @@ export const App = () => {
   return (
     <div>
       <h1 className="heading">React Casino Roulette</h1>
-      {/* <div className="roulette-wheel-wrapper">
+      <div className="roulette-wheel-wrapper">
         <RouletteWheel
+          layoutType={layoutType}
           start={rouletteWheelStart}
           winningBet={rouletteWheelBet}
           onSpinningEnd={handleEndSpin}
@@ -193,11 +198,11 @@ export const App = () => {
             Let&apos;s go
           </button>
         </div>
-      </div> */}
+      </div>
       <div className="roulette-wrapper">
 
         <RouletteTable
-          layoutType='american'
+          layoutType={layoutType}
           bets={bets}
           onBet={handleOnBet}
           chipIcons={chipIcons}
@@ -228,6 +233,11 @@ export const App = () => {
             </button>
             <button type="button" onClick={cleanAllBets}>
               Clean
+            </button>
+          </div>
+          <div className="buttons">
+            <button type="button" onClick={toggleLayoutType}>
+              Switch to {layoutType === 'european' ? 'american' : 'european'}
             </button>
             <button type="button" onClick={changeIsDebug}>
               Debug
