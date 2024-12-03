@@ -14,7 +14,7 @@ import { hasOwn } from '../../utills';
 import { classNames } from '../../libs';
 
 import './RouletteTable.css';
-import { BetType, ChipIcons, TableLayoutType } from './types';
+import { BetType, ChipIcons, RouletteLayoutType } from '../../types';
 
 export interface IOnBetParams {
   bet: keyof typeof ACTION_TYPES;
@@ -26,7 +26,7 @@ export interface IRouletteTableProps {
   onBet: (params: IOnBetParams) => void;
   bets: { [key: string]: BetType };
   isDebug?: boolean;
-  layoutType?: TableLayoutType;
+  layoutType?: RouletteLayoutType;
   chipIcons: ChipIcons;
 }
 

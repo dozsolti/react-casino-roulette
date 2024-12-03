@@ -94,6 +94,10 @@ body.bg-5 {
   margin-top: 30px;
 }
 
+.menu .buttons {
+  margin-top: 8px;
+}
+
 .buttons button {
   padding: 15px 20px;
   background-color: #e74c3c;

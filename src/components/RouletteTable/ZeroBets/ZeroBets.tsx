@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import type { FC } from 'react';
 
 import { RouletteTableContext } from '../../../context';
-import { TableLayoutType } from '../types';
+import { RouletteLayoutType } from '../../../types';
 import { DoubleZero, SingleZero } from './components';
 
 interface IZeroBetsProps {
-  layoutType: TableLayoutType;
+  layoutType: RouletteLayoutType;
 }
 
 export const ZeroBets: FC<IZeroBetsProps> = ({ layoutType }) => {

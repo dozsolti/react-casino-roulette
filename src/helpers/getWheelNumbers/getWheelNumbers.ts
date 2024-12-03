@@ -1,37 +1,20 @@
-import { getRandomArrayItem } from '../../utills';
+import { RouletteLayoutType } from '../../types';
 
-export const getWheelNumbers = () => {
-  // 1st step
-  const staticWheelNumbers: string[] = []; // without 0 and 00
+export const getWheelNumbers = (layoutType: RouletteLayoutType) => {
 
-  for (let i = 1; i <= 36; i += 1) {
-    staticWheelNumbers.push(`${i}`);
+  // 1st step - Create array
+  // Array.from({length:36}, (_,i)=>(i+1).toString())
+  const staticWheelNumbers: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36'];
+
+  // 2nd step - Shuffle
+  staticWheelNumbers.sort((a, b) => Math.random() - 0.5);
+
+  // 3rd step - Adding zeros
+  staticWheelNumbers.push('0')
+
+  if (layoutType === 'american') {
+    staticWheelNumbers.splice(18, 0, '00')
   }
 
-  // 2nd step
-  const randomNumbers: string[] = [];
-
-  for (let i = 0; i < staticWheelNumbers.length; i += 1) {
-    const availableNumbers = staticWheelNumbers.filter(
-      (number) => randomNumbers.includes(number) === false,
-    );
-    const randomNumber = getRandomArrayItem(availableNumbers);
-
-    randomNumbers.push(randomNumber);
-  }
-
-  // 3rd step
-  const finalArray: string[] = [];
-
-  randomNumbers.forEach((number, index) => {
-    if (index === 18) {
-      finalArray.push('00');
-    }
-
-    finalArray.push(number);
-  });
-
-  finalArray.push('0');
-
-  return finalArray;
+  return staticWheelNumbers;
 };

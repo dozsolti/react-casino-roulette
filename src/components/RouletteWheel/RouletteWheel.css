@@ -16,251 +16,6 @@
   line-height: 1.15;
 }
 
-.roulette-wheel-bet-number:nth-child(1) {
-  transform: rotateZ(9.4736842105263deg);
-}
-.roulette-wheel-bet-number:nth-child(2) {
-  transform: rotateZ(18.947368421053deg);
-}
-.roulette-wheel-bet-number:nth-child(3) {
-  transform: rotateZ(28.421052631579deg);
-}
-.roulette-wheel-bet-number:nth-child(4) {
-  transform: rotateZ(37.894736842105deg);
-}
-.roulette-wheel-bet-number:nth-child(5) {
-  transform: rotateZ(47.368421052632deg);
-}
-.roulette-wheel-bet-number:nth-child(6) {
-  transform: rotateZ(56.842105263158deg);
-}
-.roulette-wheel-bet-number:nth-child(7) {
-  transform: rotateZ(66.315789473684deg);
-}
-.roulette-wheel-bet-number:nth-child(8) {
-  transform: rotateZ(75.789473684211deg);
-}
-.roulette-wheel-bet-number:nth-child(9) {
-  transform: rotateZ(85.263157894737deg);
-}
-.roulette-wheel-bet-number:nth-child(10) {
-  transform: rotateZ(94.736842105263deg);
-}
-.roulette-wheel-bet-number:nth-child(11) {
-  transform: rotateZ(104.21052631579deg);
-}
-.roulette-wheel-bet-number:nth-child(12) {
-  transform: rotateZ(113.68421052632deg);
-}
-.roulette-wheel-bet-number:nth-child(13) {
-  transform: rotateZ(123.15789473684deg);
-}
-.roulette-wheel-bet-number:nth-child(14) {
-  transform: rotateZ(132.63157894737deg);
-}
-.roulette-wheel-bet-number:nth-child(15) {
-  transform: rotateZ(142.10526315789deg);
-}
-.roulette-wheel-bet-number:nth-child(16) {
-  transform: rotateZ(151.57894736842deg);
-}
-.roulette-wheel-bet-number:nth-child(17) {
-  transform: rotateZ(161.05263157895deg);
-}
-.roulette-wheel-bet-number:nth-child(18) {
-  transform: rotateZ(170.52631578947deg);
-}
-.roulette-wheel-bet-number:nth-child(19) {
-  transform: rotateZ(180deg);
-}
-.roulette-wheel-bet-number:nth-child(20) {
-  transform: rotateZ(189.47368421053deg);
-}
-.roulette-wheel-bet-number:nth-child(21) {
-  transform: rotateZ(198.94736842105deg);
-}
-.roulette-wheel-bet-number:nth-child(22) {
-  transform: rotateZ(208.42105263158deg);
-}
-.roulette-wheel-bet-number:nth-child(23) {
-  transform: rotateZ(217.89473684211deg);
-}
-.roulette-wheel-bet-number:nth-child(24) {
-  transform: rotateZ(227.36842105263deg);
-}
-.roulette-wheel-bet-number:nth-child(25) {
-  transform: rotateZ(236.84210526316deg);
-}
-.roulette-wheel-bet-number:nth-child(26) {
-  transform: rotateZ(246.31578947368deg);
-}
-.roulette-wheel-bet-number:nth-child(27) {
-  transform: rotateZ(255.78947368421deg);
-}
-.roulette-wheel-bet-number:nth-child(28) {
-  transform: rotateZ(265.26315789474deg);
-}
-.roulette-wheel-bet-number:nth-child(29) {
-  transform: rotateZ(274.73684210526deg);
-}
-.roulette-wheel-bet-number:nth-child(30) {
-  transform: rotateZ(284.21052631579deg);
-}
-.roulette-wheel-bet-number:nth-child(31) {
-  transform: rotateZ(293.68421052632deg);
-}
-.roulette-wheel-bet-number:nth-child(32) {
-  transform: rotateZ(303.15789473684deg);
-}
-.roulette-wheel-bet-number:nth-child(33) {
-  transform: rotateZ(312.63157894737deg);
-}
-.roulette-wheel-bet-number:nth-child(34) {
-  transform: rotateZ(322.10526315789deg);
-}
-.roulette-wheel-bet-number:nth-child(35) {
-  transform: rotateZ(331.57894736842deg);
-}
-.roulette-wheel-bet-number:nth-child(36) {
-  transform: rotateZ(341.05263157895deg);
-}
-.roulette-wheel-bet-number:nth-child(37) {
-  transform: rotateZ(350.52631578947deg);
-}
-
-/* Formula: (SEEMS LIKE THIS NEEDS TO BE REVISED)
-const $SLICES_NUMBER = 38  // roulette-wheel-bet-number of slices (36 + 0 + 00)
-const $SPINS = 8 // the roulette-wheel-bet-number of laps the ball spins before resting
-const $PITWIDTH = 32 // the width of each pit
-const $RIMZISE = 6 // size of the bevelled rim edge
-const $SINGLE_SPIN = 9 // Math.floor(360 / 38)
-
-const $INDEX = 0 // (this means the element position in DOM, 0 bet is not the index 0)
-
-const $STEP_1 = -(360 * $SPINS - ($PITWIDTH * 2 + $RIMZISE) + $SINGLE_SPIN)
-const $STEP_2 =  $STEP_1 + $INDEX * $SINGLE_SPIN
-console.log($STEP_2)
-*/
-.roulette-wheel-inner[data-spinToIndex]::before{
-  transition: transform 9s ease-out;
-  content: '\2022';
-}
-
-.roulette-wheel-inner[data-spintoindex='0']::before {
-  transform: rotateZ(-2819deg);
-}
-.roulette-wheel-inner[data-spintoindex='1']::before {
-  transform: rotateZ(-2810deg);
-}
-.roulette-wheel-inner[data-spintoindex='2']::before {
-  transform: rotateZ(-2801deg);
-}
-.roulette-wheel-inner[data-spintoindex='3']::before {
-  transform: rotateZ(-2792deg);
-}
-.roulette-wheel-inner[data-spintoindex='4']::before {
-  transform: rotateZ(-2783deg);
-}
-.roulette-wheel-inner[data-spintoindex='5']::before {
-  transform: rotateZ(-2774deg);
-}
-.roulette-wheel-inner[data-spintoindex='6']::before {
-  transform: rotateZ(-2764deg); /* chngd */
-}
-.roulette-wheel-inner[data-spintoindex='7']::before {
-  transform: rotateZ(-2754deg);
-}
-.roulette-wheel-inner[data-spintoindex='8']::before {
-  transform: rotateZ(-2744deg);
-}
-.roulette-wheel-inner[data-spintoindex='9']::before {
-  transform: rotateZ(-2734deg);
-}
-.roulette-wheel-inner[data-spintoindex='10']::before {
-  transform: rotateZ(-2724deg);
-}
-.roulette-wheel-inner[data-spintoindex='11']::before {
-  transform: rotateZ(-2715deg);
-}
-.roulette-wheel-inner[data-spintoindex='12']::before {
-  transform: rotateZ(-2705deg);
-}
-.roulette-wheel-inner[data-spintoindex='13']::before {
-  transform: rotateZ(-2695deg);
-}
-.roulette-wheel-inner[data-spintoindex='14']::before {
-  transform: rotateZ(-2685deg);
-}
-.roulette-wheel-inner[data-spintoindex='15']::before {
-  transform: rotateZ(-2675deg);
-}
-.roulette-wheel-inner[data-spintoindex='16']::before {
-  transform: rotateZ(-2665deg);
-}
-.roulette-wheel-inner[data-spintoindex='17']::before {
-  transform: rotateZ(-2655deg);
-}
-.roulette-wheel-inner[data-spintoindex='18']::before {
-  transform: rotateZ(-2645deg);
-}
-.roulette-wheel-inner[data-spintoindex='19']::before {
-  transform: rotateZ(-2635deg);
-}
-.roulette-wheel-inner[data-spintoindex='20']::before {
-  transform: rotateZ(-2625deg);
-}
-.roulette-wheel-inner[data-spintoindex='21']::before {
-  transform: rotateZ(-2615deg);
-}
-.roulette-wheel-inner[data-spintoindex='22']::before {
-  transform: rotateZ(-2605deg);
-}
-.roulette-wheel-inner[data-spintoindex='23']::before {
-  transform: rotateZ(-2595deg);
-}
-.roulette-wheel-inner[data-spintoindex='24']::before {
-  transform: rotateZ(-2585deg);
-}
-.roulette-wheel-inner[data-spintoindex='25']::before {
-  transform: rotateZ(-2575deg);
-}
-.roulette-wheel-inner[data-spintoindex='26']::before {
-  transform: rotateZ(-2565deg);
-}
-.roulette-wheel-inner[data-spintoindex='27']::before {
-  transform: rotateZ(-2557deg); /* chngd */
-}
-.roulette-wheel-inner[data-spintoindex='28']::before {
-  transform: rotateZ(-2548deg);
-}
-.roulette-wheel-inner[data-spintoindex='29']::before {
-  transform: rotateZ(-2539deg);
-}
-.roulette-wheel-inner[data-spintoindex='30']::before {
-  transform: rotateZ(-2530deg);
-}
-.roulette-wheel-inner[data-spintoindex='31']::before {
-  transform: rotateZ(-2521deg);
-}
-.roulette-wheel-inner[data-spintoindex='32']::before {
-  transform: rotateZ(-2512deg);
-}
-.roulette-wheel-inner[data-spintoindex='33']::before {
-  transform: rotateZ(-2503deg);
-}
-.roulette-wheel-inner[data-spintoindex='34']::before {
-  transform: rotateZ(-2494deg);
-}
-.roulette-wheel-inner[data-spintoindex='35']::before {
-  transform: rotateZ(-2485deg);
-}
-.roulette-wheel-inner[data-spintoindex='36']::before {
-  transform: rotateZ(-2477deg); /* chngd */
-}
-.roulette-wheel-inner[data-spintoindex='37']::before {
-  transform: rotateZ(-2468deg);
-}
-
 .roulette-wheel-plate {
   background-color: #808080;
   width: 350px;
@@ -269,8 +24,7 @@ console.log($STEP_2)
   border-radius: 50%;
   position: relative;
 }
-
-.roulette-wheel-plate.with-animation {
+.roulette-wheel-plate.automatic-spinning{
   animation: rotate var(--spinningAnimationSpeed) infinite linear;
 }
 
@@ -317,9 +71,12 @@ console.log($STEP_2)
 .roulette-wheel-bet-number:nth-child(odd) {
   border-top-color: #000;
 }
-.roulette-wheel-bet-number:nth-child(19), .roulette-wheel-bet-number:nth-child(38) {
+
+.roulette-wheel-inner.american .roulette-wheel-bet-number:nth-child(19), 
+.roulette-wheel-bet-number:last-child{
   border-top-color: #008000;
 }
+
 .roulette-wheel-pit {
   color: #fff;
   padding-top: 12px;
@@ -380,12 +137,15 @@ console.log($STEP_2)
   */
 }
 
-.roulette-wheel-inner.rest::before {
-  transition: top 0.5s ease-in, right 0.5s ease-in, bottom 0.5s ease-in, left 0.5s ease-in;
-  top: 25%;
-  right: 25%;
-  bottom: 24%;
-  left: 25%;
+.roulette-wheel-inner[data-spinToIndex]::before{
+  transition-property: transform;
+  transition-timing-function: var(--wheel-rotation-function);
+  transition-duration: var(--wheel-rotation-duration);
+
+  content: '\2022';
+}
+.roulette-wheel-inner[data-spintoindex]::before {
+  transform: rotateZ(var(--wheel-rotation));
 }
 
 @keyframes rotate {

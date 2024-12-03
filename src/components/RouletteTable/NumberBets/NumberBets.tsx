@@ -16,12 +16,12 @@ import {
 } from '../../../helpers';
 import { ACTION_TYPES } from '../../../constants';
 import { ChipRenderer } from '../utils/ChipRenderer';
-import { TableLayoutType } from '../types';
+import { RouletteLayoutType } from '../../../types';
 
 const NUMBERS = Array.from({ length: 36 }, (_, i) => i + 1);
 
 interface INumberBetsProps {
-  layoutType: TableLayoutType;
+  layoutType: RouletteLayoutType;
 }
 
 export const NumberBets: FC<INumberBetsProps> = ({ layoutType }) => {
