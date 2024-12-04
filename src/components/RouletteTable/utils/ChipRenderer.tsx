@@ -14,9 +14,9 @@ interface ChipRendererProps {
 }
 
 export function ChipRenderer({ cName, action, highlight, style = {}, chipPosition = '', hideChips = false, betLabel = '' }: ChipRendererProps) {
-    const { onBetCatcherHover, bets, chipIcons } = useContext(RouletteTableContext);
+    const { onBetCatcherHover, bets, chips } = useContext(RouletteTableContext);
 
-    const betIcon = findChipIcon(bets[highlight], chipIcons)
+    const betIcon = findChipIcon(bets[highlight], chips)
 
     if (betLabel)
         return (

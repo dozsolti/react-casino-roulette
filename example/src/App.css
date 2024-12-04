@@ -85,7 +85,7 @@ body.bg-5 {
   flex-direction: column;
 }
 
-.menu .chips, .menu .buttons, .roulette-wheel-wrapper .buttons {
+.menu, .menu .buttons, .roulette-wheel-wrapper .buttons {
   display: flex;
   justify-content: center;
 }
@@ -119,38 +119,6 @@ body.bg-5 {
   cursor: not-allowed;
 }
 
-.chips {
-  list-style: none;
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-
-.chips li {
-  margin-right: 20px;
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.chips li p{
-  position: absolute;
-  color: white;
-}
-
-.chips li:hover {
-  transform: scale(1.1);
-}
-
-.chips li.active {
-  transform: scale(1.3);
-}
-
-.chips li:last-child {
-  margin-right: 0;
-}
 
 .score {
   text-align: center;

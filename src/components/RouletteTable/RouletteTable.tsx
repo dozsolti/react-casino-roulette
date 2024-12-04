@@ -14,28 +14,14 @@ import { hasOwn } from '../../utills';
 import { classNames } from '../../libs';
 
 import './RouletteTable.css';
-import { BetType, ChipIcons, RouletteLayoutType } from '../../types';
-
-export interface IOnBetParams {
-  bet: keyof typeof ACTION_TYPES;
-  payload: string[];
-  id: string;
-}
-
-export interface IRouletteTableProps {
-  onBet: (params: IOnBetParams) => void;
-  bets: { [key: string]: BetType };
-  isDebug?: boolean;
-  layoutType?: RouletteLayoutType;
-  chipIcons: ChipIcons;
-}
+import { IRouletteTableProps } from '../../types';
 
 export const RouletteTable: FC<IRouletteTableProps> = ({
   onBet,
   bets,
-  chipIcons,
+  chips,
   layoutType = 'european',
-  
+
   isDebug,
 }) => {
   const tableRef = useRef<HTMLDivElement>(null);
@@ -165,7 +151,7 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
   );
 
   const contextValue = useMemo(
-    () => ({ bets, chipIcons, onBetCatcherHover: handleBetCatcherHover }),
+    () => ({ bets, chips, onBetCatcherHover: handleBetCatcherHover }),
     [bets, handleBetCatcherHover],
   );
 

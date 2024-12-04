@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useMemo, useState } from 'react';
-import { RouletteTable, RouletteWheel } from 'react-casino-roulette';
+import { ChipList, RouletteTable, RouletteWheel } from 'react-casino-roulette';
 import 'react-casino-roulette/dist/index.css';
 
 import { getRandomInt } from './utills';
@@ -19,11 +19,11 @@ const API = {
     return getRandomRouletteWinBet();
   },
 };
-const chipIcons = {
-  1: whiteChip,
-  10: blueChip,
-  100: blackChip,
-  500: cyanChip,
+const chips = {
+  '1': whiteChip,
+  '10': blueChip,
+  '100': blackChip,
+  '500': cyanChip,
 }
 
 const calcTotalBet = (bets) =>
@@ -33,7 +33,6 @@ export const App = () => {
   const [bets, setBets] = useState({});
   const [betHistory, setBetHistory] = useState([]);
   const [isDebug, setIsDebug] = useState(false);
-  const [activeChip, setActiveChip] = useState(Object.keys(chipIcons)[0]);
   const [shouldShowData, setShouldShowData] = useState(true);
 
   const [isRouletteWheelSpinning, setIsRouletteWheelSpinning] = useState(false);
@@ -41,7 +40,9 @@ export const App = () => {
   const [rouletteWheelBet, setRouletteWheelBet] = useState('-1');
   const [layoutType, setLayoutType] = useState('american')
 
-  /* useEffect(() => {
+  const [selectedChip, setSelectedChip] = useState(Object.keys(chips)[0]);
+
+  /*useEffect(() => {
     const backgroundIndex = getRandomInt(0, 5);
     const backgroundClass = `bg-${backgroundIndex}`;
 
@@ -121,7 +122,7 @@ export const App = () => {
   };
 
   const addBet = (id) => {
-    const value = Number(activeChip);
+    const value = Number(selectedChip);
 
     setBetHistory((prevState) => [...prevState, { id, value }]);
 
@@ -157,12 +158,6 @@ export const App = () => {
     );
 
     addBet(id);
-  };
-
-  const handleChipChange = (event) => {
-    const chipName = event.target.closest('[data-name]').dataset.name;
-
-    setActiveChip(chipName);
   };
 
   const handleShowData = () => {
@@ -205,25 +200,17 @@ export const App = () => {
           layoutType={layoutType}
           bets={bets}
           onBet={handleOnBet}
-          chipIcons={chipIcons}
+          chips={chips}
 
           isDebug={isDebug}
         />
 
         <div className="menu">
-          <ul className="chips">
-            {Object.entries(chipIcons).map(([value, icon]) => (
-              <li
-                key={value}
-                data-name={value}
-                className={activeChip === value ? 'active' : ''}
-                onClick={handleChipChange}
-              >
-                <img width={64} height={64} src={icon} alt="chip" />
-                <p >{value}</p>
-              </li>
-            ))}
-          </ul>
+          <ChipList
+            chips={chips}
+            selectedChip={selectedChip}
+            onChipPressed={setSelectedChip}
+          />
           <div className="score">
             <p>Total bet: {totalBet}</p>
           </div>
