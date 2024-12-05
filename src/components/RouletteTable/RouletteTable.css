@@ -1,16 +1,13 @@
-/* fonts - https://web.mit.edu/jmorzins/www/fonts.html */
-/* TODO: move to css modules */
-
 .roulette-table-container * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 .roulette-table-container {
 	--red: #cc000e;
 	--black: #000;
-	--hover: rgba(126,220,70);
+	--hover: rgba(126, 220, 70);
 	font-size: 18px;
 	font-weight: 400;
 	font-family: Helvetica, sans-serif;
@@ -18,7 +15,7 @@
 }
 
 .roulette-table-container-first {
-  position: relative;
+	position: relative;
 	display: flex;
 	flex-flow: column-reverse wrap;
 	align-content: flex-start;
@@ -34,8 +31,8 @@
 .basket-catcher-top,
 .basket-catcher-bottom,
 .double-street-catcher-top-right {
-  position: absolute;
-  z-index: 11;
+	position: absolute;
+	z-index: 11;
 }
 
 .spleet-bet-catcher,
@@ -60,52 +57,52 @@
 }
 
 .split-up-bet-catcher-top {
-  top: -3px;
-  width: 100%;
-  height: calc(3px + 2px);
+	top: -3px;
+	width: 100%;
+	height: calc(3px + 2px);
 }
 
 .split-up-bet-catcher-right {
-  top: 0;
-  bottom: 0;
-  right: -3px;
-  width: calc(3px + 2px);
-  height: 100%;
+	top: 0;
+	bottom: 0;
+	right: -3px;
+	width: calc(3px + 2px);
+	height: 100%;
 }
 
 .split-up-bet-catcher-bottom {
-  bottom: -3px;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: calc(3px + 2px);
+	bottom: -3px;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: calc(3px + 2px);
 }
 
 .spleet-bet-catcher {
-  border-radius: 50%;
-  top: -15px;
-  left: -15px;
+	border-radius: 50%;
+	top: -15px;
+	left: -15px;
 }
 
 .corner-bet-catcher {
-  border-radius: 50%;
-  top: -15px;
-  right: -15px;
+	border-radius: 50%;
+	top: -15px;
+	right: -15px;
 }
 
 .corner-bet-catcher.bottom {
-  top: auto;
-  bottom: -15px;
+	top: auto;
+	bottom: -15px;
 }
 
 .six-lines-catcher,
 .double-street-catcher-top-right {
-  border-radius: 50%;
+	border-radius: 50%;
 }
 
 .six-lines-catcher {
-  bottom: -15px;
-  right: -15px;
+	bottom: -15px;
+	right: -15px;
 }
 
 .double-street-catcher-top-right {
@@ -127,19 +124,22 @@
 	bottom: -5px;
 }
 
-.red-item, .black-item, .zero-item {
-  position: relative;
-  border: none;
-  border-left: 3px solid #fff;
-  border-top: 3px solid #fff;
+.red-item,
+.black-item,
+.zero-item {
+	position: relative;
+	border: none;
+	border-left: 3px solid #fff;
+	border-top: 3px solid #fff;
 	padding-top: 25px;
 	padding-bottom: 25px;
 	text-align: center;
-	/* width: 50px; */
 	width: 7.14%;
-	/* font-size: 30px; */
 	color: #fff;
+	
+	user-select: none;
 }
+
 .red-item {
 	background-color: var(--red);
 }
@@ -154,17 +154,13 @@
 }
 
 .zero-item {
-	/* background-color: green; */
-  /* border-bottom: 3px solid white; */
-	/* padding-top: 110px;
-	padding-bottom: 111px; */
-  padding-top: 50px;
-  padding-bottom: 36.6px;
+	padding-top: 50px;
+	padding-bottom: 36.6px;
 }
 
-.zero-item.single-zero{
+.zero-item.single-zero {
 	padding-top: 100px;
-    padding-bottom: 96.4px;
+	padding-bottom: 96.4px;
 }
 
 .item-hover,
@@ -174,36 +170,32 @@
 .column-item,
 .doz-item,
 .outside-section {
-  transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease;
 }
 
-.item-hover,
-.zero-item:hover,
-.red-item:hover,
-.black-item:hover
-/*
-.column-item:hover,
-.doz-item:hover,
-.outside-section:hover*/ {
-  background-color: var(--hover);
-  cursor: pointer;
+.roulette-table-container:not(.read-only) .item-hover,
+.roulette-table-container:not(.read-only) .zero-item:hover,
+.roulette-table-container:not(.read-only) .red-item:hover,
+.roulette-table-container:not(.read-only) .black-item:hover {
+	background-color: var(--hover);
+	cursor: pointer;
 }
 
 .column-item {
 	position: relative;
 	border: 3px solid #fff;
 	border-top: none;
-	/* background-color: green; */
+
 	padding-top: 25px;
 	padding-bottom: 25px;
 	text-align: center;
-	/* width: 50px; */
+
 	width: 7.14%;
-	/* font-size: 30px; */
+
 	color: #fff;
+	user-select: none;
 }
 
-/* to change this way */
 .column-item[data-action="1ST_COLUMN"] {
 	border-bottom: 1px solid #fff;
 	margin-bottom: -1px;
@@ -216,7 +208,6 @@
 .roulette-table-container-second {
 	display: flex;
 	justify-content: center;
-	/* background-color: green; */
 	width: calc(100% - 7.14% - 7.14%);
 	margin: 0 auto;
 	height: 70px;
@@ -226,46 +217,36 @@
 
 .doz-item {
 	position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	flex: 1;
-	/* flex-basis: 220px; */
 	border: solid #fff;
-	/* background-color: green; */
-	/* padding-top: 15px; */
-	/* padding-bottom: 30px; */
 	text-align: center;
 	height: 100%;
-	/* font-size: 30px; */
 	color: #fff;
+	user-select: none;
 }
 
 .roulette-table-container-third {
 	display: flex;
-	/* background-color: green; */
 	width: calc(100% - 7.14% - 7.14%);
 	margin: 0 auto;
-	/* height: 150px; */
 	flex-flow: row wrap;
 	align-content: flex-start;
 }
 
 .outside-section {
 	position: relative;
-	/* flex-basis: 107px; */
 	flex: 1;
 	border: solid #fff;
-	/* background-color: green; */
-	/* padding-top: 15px;
-	padding-bottom: 30px; */
 	text-align: center;
 	height: 70px;
-	/* font-size: 30px; */
 	color: #fff;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	user-select: none;
 }
 
 .rhomb-red {

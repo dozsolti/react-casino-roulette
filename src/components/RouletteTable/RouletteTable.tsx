@@ -21,13 +21,14 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
   bets,
   chips,
   layoutType = 'european',
+  readOnly = false,
 
   isDebug,
 }) => {
   const tableRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (tableRef.current === null) {
+    if (tableRef.current === null || readOnly) {
       return;
     }
 
@@ -100,7 +101,7 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
     return () => {
       tableRefCurrent?.removeEventListener('click', listener);
     };
-  }, [onBet]);
+  }, [onBet, readOnly]);
 
   const doHighlight = (betId: string) => {
     if (tableRef.current === null) {
@@ -122,7 +123,7 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
 
       const firstHighlight = toHighlight?.[0];
 
-      if (firstHighlight === undefined) {
+      if (firstHighlight === undefined || readOnly) {
         return;
       }
 
@@ -147,7 +148,7 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
         doHighlight(element);
       });
     },
-    [],
+    [readOnly],
   );
 
   const contextValue = useMemo(
@@ -158,7 +159,7 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
   return (
     <RouletteTableContext.Provider value={contextValue}>
       <div
-        className={classNames('roulette-table-container', { debug: isDebug })}
+        className={classNames('roulette-table-container', { debug: isDebug, 'read-only': readOnly })}
         ref={tableRef}
       >
         <section className="roulette-table-container-first">
@@ -180,4 +181,5 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
 RouletteTable.defaultProps = {
   isDebug: false,
   layoutType: 'european',
+  readOnly: false,
 };

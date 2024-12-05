@@ -201,6 +201,7 @@ export const App = () => {
           bets={bets}
           onBet={handleOnBet}
           chips={chips}
+          readOnly={isRouletteWheelSpinning}
 
           isDebug={isDebug}
         />

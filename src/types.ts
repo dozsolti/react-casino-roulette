@@ -32,6 +32,7 @@ export interface IRouletteTableProps {
     onBet: (params: IOnBetParams) => void;
     bets: { [key: string]: BetType };
     isDebug?: boolean;
+    readOnly?: boolean;
     layoutType?: RouletteLayoutType;
     chips: Chips;
 }
