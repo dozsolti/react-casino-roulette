@@ -53,29 +53,6 @@
   bottom: 12%;
   z-index: 1;
 }
-.roulette-wheel-bet-number {
-  width: 32px;
-  height: 175px;
-  display: inline-block;
-  text-align: center;
-  position: absolute;
-  top: 0;
-  left: calc(50% - (32px/2));
-  transform-origin: 50% 100%;
-  background-color: transparent;
-  border-left: 16px solid transparent;
-  border-right: 16px solid transparent;
-  border-top: 175px solid #ff0000;
-  box-sizing: border-box;
-}
-.roulette-wheel-bet-number:nth-child(odd) {
-  border-top-color: #000;
-}
-
-.roulette-wheel-inner.american .roulette-wheel-bet-number:nth-child(19), 
-.roulette-wheel-bet-number:last-child{
-  border-top-color: #008000;
-}
 
 .roulette-wheel-pit {
   color: #fff;

@@ -3,18 +3,19 @@ import { calculateDefaultRotation, calculateSpinToRotation, getWheelNumbers } fr
 import { classNames } from '../../libs';
 
 import './RouletteWheel.css';
+import './RouletteWheelNumbers.css';
 import { IRouletteWheelProps } from '../../types';
 
 export const RouletteWheel: React.FC<IRouletteWheelProps> = ({
   start,
   winningBet,
   onSpinningEnd,
-  
+
   layoutType = 'european',
   automaticSpinning = true,
 
   spinLaps = 3,
-  spinDuration = 3 * 1000,
+  spinDuration = 3,
   spinEaseFunction = 'ease-out',
 }) => {
 
@@ -36,12 +37,12 @@ export const RouletteWheel: React.FC<IRouletteWheelProps> = ({
       listElement.setAttribute('data-spintoindex', `${betIndex}`);
 
       listElement.style.setProperty('--wheel-rotation-function', spinEaseFunction);
-      listElement.style.setProperty('--wheel-rotation-duration', spinDuration + 'ms');
+      listElement.style.setProperty('--wheel-rotation-duration', spinDuration + 's');
       listElement.style.setProperty('--wheel-rotation', calculateSpinToRotation(layoutType, betIndex, spinLaps) + 'deg');
 
       setTimeout(() => {
         onSpinningEnd?.();
-      }, spinDuration);
+      }, spinDuration * 1000);
     }, 100);
 
   }
@@ -92,7 +93,7 @@ RouletteWheel.defaultProps = {
   onSpinningEnd: () => undefined,
   layoutType: 'european',
   spinLaps: 3,
-  spinDuration: 3 * 1000,
+  spinDuration: 3,
   automaticSpinning: true,
   spinEaseFunction: 'ease-out',
 };
