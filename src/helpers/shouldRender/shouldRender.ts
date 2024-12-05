@@ -1,4 +1,4 @@
-import { IRouletteTableProps } from '../../components/RouletteTable';
+import { IRouletteTableProps } from "../../types";
 
 const noTopRender = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36];
 const noRightRender = [34, 35, 36];

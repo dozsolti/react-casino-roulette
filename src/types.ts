@@ -29,12 +29,15 @@ export interface IOnBetParams {
     id: string;
 }
 export interface IRouletteTableProps {
-    onBet: (params: IOnBetParams) => void;
-    bets: { [key: string]: BetType };
-    isDebug?: boolean;
-    readOnly?: boolean;
-    layoutType?: RouletteLayoutType;
     chips: Chips;
+    bets: { [key: string]: BetType };
+    onBet: (params: IOnBetParams) => void;
+    layoutType?: RouletteLayoutType;
+
+    height?: React.CSSProperties['height'];
+    readOnly?: boolean;
+
+    isDebug?: boolean;
 }
 
 export interface IRouletteWheelProps {

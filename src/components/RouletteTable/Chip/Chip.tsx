@@ -2,7 +2,7 @@ import React from 'react';
 import type { FC } from 'react';
 
 import './Chip.css';
-import { IRouletteTableProps } from '../RouletteTable';
+import { IRouletteTableProps } from '../../../types';
 
 export interface IChipProps {
   position:

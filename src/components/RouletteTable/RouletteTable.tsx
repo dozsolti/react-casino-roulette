@@ -14,6 +14,7 @@ import { hasOwn } from '../../utills';
 import { classNames } from '../../libs';
 
 import './RouletteTable.css';
+import './RouletteTableCells.css';
 import { IRouletteTableProps } from '../../types';
 
 export const RouletteTable: FC<IRouletteTableProps> = ({
@@ -22,7 +23,7 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
   chips,
   layoutType = 'european',
   readOnly = false,
-
+  height = '368px',
   isDebug,
 }) => {
   const tableRef = useRef<HTMLDivElement>(null);
@@ -151,6 +152,14 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
     [readOnly],
   );
 
+  const containerStyles = useMemo(() => {
+    return {
+      height,
+      fontSize: `calc(${height} * 0.05)`,
+      '--roulette-romb-size': `calc(${height} * 0.09)`,
+    }
+  }, [height])
+
   const contextValue = useMemo(
     () => ({ bets, chips, onBetCatcherHover: handleBetCatcherHover }),
     [bets, handleBetCatcherHover],
@@ -160,6 +169,8 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
     <RouletteTableContext.Provider value={contextValue}>
       <div
         className={classNames('roulette-table-container', { debug: isDebug, 'read-only': readOnly })}
+        style={containerStyles}
+
         ref={tableRef}
       >
         <section className="roulette-table-container-first">
@@ -182,4 +193,5 @@ RouletteTable.defaultProps = {
   isDebug: false,
   layoutType: 'european',
   readOnly: false,
+  height: '368px'
 };
