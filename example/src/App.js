@@ -1,6 +1,8 @@
 import React from 'react';
 import 'react-casino-roulette/dist/index.css';
 
+import BasicExample from './examples/BasicExample';
+
 import ExampleBasicWheel from './examples/Wheel/ExampleBasicWheel';
 import ExampleWheelAdvanced from './examples/Wheel/ExampleWheelAdvanced';
 
@@ -17,7 +19,12 @@ export const App = () => {
     <div className='examples-container'>
       <h1 className='heading'>React Advanced Casino Roulette</h1>
 
-      <h2>Basic examples</h2>
+      <h2>Basic example</h2>
+      <BasicExample />
+
+      <hr />
+      
+      <h2>Minimal examples</h2>
       <ExampleBasicWheel />
       <ExampleBasicTable />
 
