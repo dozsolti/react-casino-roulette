@@ -15,7 +15,7 @@ import { classNames } from '../../libs';
 
 import './RouletteTable.css';
 import './RouletteTableCells.css';
-import { IRouletteTableProps } from '../../types';
+import { BetId, IRouletteTableProps } from '../../types';
 
 export const RouletteTable: FC<IRouletteTableProps> = ({
   onBet,
@@ -91,7 +91,7 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
       onBet({
         bet: action as keyof typeof ACTION_TYPES,
         payload,
-        id: payloadData,
+        id: payloadData as BetId,
       });
     };
 

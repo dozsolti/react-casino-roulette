@@ -2,11 +2,12 @@ import React, { ReactNode, useContext } from "react";
 import { findChipIcon, shouldRenderChip } from "../../../helpers";
 import { Chip } from "../Chip";
 import { RouletteTableContext } from "../../../context";
+import { BetId } from "../../../types";
 
 interface ChipRendererProps {
     cName: string,
     action: string,
-    highlight: string,
+    highlight: any, // Refactor this later. In some places it uses STREET.
     style?: any,
     chipPosition?: any,
     hideChips?: boolean,
