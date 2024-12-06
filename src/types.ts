@@ -51,7 +51,7 @@ export interface IRouletteTableProps {
 export interface IRouletteWheelProps {
     start: boolean;
     winningBet: AvailableNumbers | '-1';
-    onSpinningEnd?: () => void;
+    onSpinningEnd?: (winner: AvailableNumbers) => void;
     layoutType?: RouletteLayoutType;
     automaticSpinning?: boolean,
     spinLaps?: number,

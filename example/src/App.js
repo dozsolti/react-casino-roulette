@@ -1,247 +1,41 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useEffect, useMemo, useState } from 'react';
-import { ChipList, RouletteTable, RouletteWheel } from 'react-casino-roulette';
+import React from 'react';
 import 'react-casino-roulette/dist/index.css';
 
-import { getRandomInt } from './utills';
-import { getRandomRouletteWinBet } from './helpers';
-import whiteChip from '../public/images/blank-chips/white-chip.png';
-import blueChip from '../public/images/blank-chips/blue-chip.png';
-import blackChip from '../public/images/blank-chips/black-chip.png';
-import cyanChip from '../public/images/blank-chips/cyan-chip.png';
+import ExampleBasicWheel from './examples/Wheel/ExampleBasicWheel';
+import ExampleWheelAdvanced from './examples/Wheel/ExampleWheelAdvanced';
+
+import ExampleBasicTable from './examples/Tables/ExampleBasicTable';
+import ExampleTableWithChips from './examples/Tables/ExampleTableWithChips';
+import ExampleTableReadOnly from './examples/Tables/ExampleTableReadOnly';
+import ExampleTableAdvanced from './examples/Tables/ExampleTableAdvanced';
 
 import './App.css';
 
-const API = {
-  getRandomBet: async () => {
-    return getRandomRouletteWinBet();
-  },
-};
-const chips = {
-  '1': whiteChip,
-  '10': blueChip,
-  '100': blackChip,
-  '500': cyanChip,
-}
-
-const calcTotalBet = (bets) =>
-  Object.entries(bets).reduce((acc, [, value]) => acc + value.amount, 0);
-
 export const App = () => {
-  const [bets, setBets] = useState({});
-  const [betHistory, setBetHistory] = useState([]);
-  const [isDebug, setIsDebug] = useState(false);
-  const [shouldShowData, setShouldShowData] = useState(true);
-
-  const [isRouletteWheelSpinning, setIsRouletteWheelSpinning] = useState(false);
-  const [rouletteWheelStart, setRouletteWheelStart] = useState(false);
-  const [rouletteWheelBet, setRouletteWheelBet] = useState('-1');
-  const [layoutType, setLayoutType] = useState('american')
-
-  const [selectedChip, setSelectedChip] = useState(Object.keys(chips)[0]);
-
-  /*useEffect(() => {
-    const backgroundIndex = getRandomInt(0, 5);
-    const backgroundClass = `bg-${backgroundIndex}`;
-
-    document.body.classList.add(backgroundClass);
-
-    return () => {
-      document.body.classList.remove(backgroundClass);
-    };
-  }, []); */
-
-  // you are here for
-  useEffect(() => {
-    if (rouletteWheelBet === '-1' || rouletteWheelStart === true) {
-      return;
-    }
-
-    setRouletteWheelStart(true);
-  }, [rouletteWheelBet, rouletteWheelStart]);
-
-  useEffect(() => {
-    if (isRouletteWheelSpinning === false) {
-      return;
-    }
-
-    const prepare = async () => {
-      const bet = await API.getRandomBet();
-      console.info('gotta win bet', bet);
-
-      setRouletteWheelStart(false);
-      setRouletteWheelBet(bet);
-    };
-
-    prepare();
-  }, [isRouletteWheelSpinning]);
-
-  const handleDoSpin = () => {
-    setIsRouletteWheelSpinning(true);
-  };
-
-  const handleEndSpin = () => {
-    setIsRouletteWheelSpinning(false);
-  };
-  // end you are here for
-
-  const toggleLayoutType = () => {
-    setLayoutType(t => t === 'european' ? 'american' : 'european')
-  }
-  const undoLastBet = () => {
-    if (betHistory.length === 0) {
-      console.error('Nothing to undo');
-      return;
-    }
-
-    setBets((prevState) => {
-      const state = JSON.parse(JSON.stringify(prevState));
-
-      const lastBet = betHistory[betHistory.length - 1];
-
-      const { id: lastBetId, value } = lastBet;
-
-      if (state[lastBetId].amount === 1) {
-        delete state[lastBetId];
-        return state;
-      }
-
-      state[lastBetId].amount -= value;
-
-      return state;
-    });
-
-    setBetHistory((prevState) => prevState.slice(0, -1));
-  };
-
-  const cleanAllBets = () => {
-    setBetHistory([]);
-    setBets({});
-  };
-
-  const addBet = (id) => {
-    const value = Number(selectedChip);
-
-    setBetHistory((prevState) => [...prevState, { id, value }]);
-
-    setBets((prevState) => {
-      const state = JSON.parse(JSON.stringify(prevState));
-
-      if (state[id] !== undefined) {
-        state[id] = {
-          ...state[id],
-          amount: state[id].amount + value,
-        };
-        return state;
-      }
-
-      state[id] = {
-        amount: value,
-      };
-
-      return state;
-    });
-  };
-
-  const changeIsDebug = () => setIsDebug((prevState) => !prevState);
-
-  const handleOnBet = ({ bet, payload, id }) => {
-    console.info(
-      'handleOnBet',
-      `bet ===> ${bet}`,
-      'payload ===>',
-      payload,
-      'id ===> ',
-      id,
-    );
-
-    addBet(id);
-  };
-
-  const handleShowData = () => {
-    setShouldShowData((prevState) => !prevState);
-  };
-
-  const totalBet = calcTotalBet(bets);
-  const formattedData = useMemo(() => JSON.stringify(
-    Object
-      .entries(bets)
-      .sort((a, b) => a[0].localeCompare(b[0]))
-      .map(bet => {
-        return `${bet[0]} : ${bet[1].amount}`;
-      })
-    , null, 1).slice(1, -1), [bets])
 
   return (
-    <div>
-      <h1 className="heading">React Casino Roulette</h1>
-      <div className="roulette-wheel-wrapper">
-        <RouletteWheel
-          layoutType={layoutType}
-          start={rouletteWheelStart}
-          winningBet={rouletteWheelBet}
-          onSpinningEnd={handleEndSpin}
-        />
-        <div className="buttons">
-          <button
-            type="button"
-            disabled={isRouletteWheelSpinning}
-            onClick={handleDoSpin}
-          >
-            Let&apos;s go
-          </button>
-        </div>
-      </div>
-      <div className="roulette-wrapper">
+    <div className='examples-container'>
+      <h1 className='heading'>React Advanced Casino Roulette</h1>
 
-        <RouletteTable
-          layoutType={layoutType}
-          bets={bets}
-          onBet={handleOnBet}
-          chips={chips}
-          readOnly={isRouletteWheelSpinning}
+      <h2>Basic examples</h2>
+      <ExampleBasicWheel />
+      <ExampleBasicTable />
 
-          isDebug={isDebug}
-        />
+      <hr />
 
-        <div className="menu">
-          <ChipList
-            chips={chips}
-            selectedChip={selectedChip}
-            onChipPressed={setSelectedChip}
-          />
-          <div className="score">
-            <p>Total bet: {totalBet}</p>
-          </div>
-          <div className="buttons">
-            <button type="button" onClick={undoLastBet}>
-              Undo
-            </button>
-            <button type="button" onClick={cleanAllBets}>
-              Clean
-            </button>
-          </div>
-          <div className="buttons">
-            <button type="button" onClick={toggleLayoutType}>
-              Switch to {layoutType === 'european' ? 'american' : 'european'}
-            </button>
-            <button type="button" onClick={changeIsDebug}>
-              Debug
-            </button>
-            <button type="button" onClick={handleShowData}>
-              {shouldShowData === false ? 'Show' : 'Hide'} data
-            </button>
-          </div>
-        </div>
-        <div>
-          {shouldShowData === true && (
-            <pre className="data">{formattedData}</pre>
-          )}
-        </div>
-        <div style={{ height: 50 }} />
-      </div>
+      <h2>Table & Chips example</h2>
+      <ExampleTableWithChips />
+      <hr />
+      <h2>ReadOnly Table example</h2>
+      <p>Disable the table when the wheel is spinning.</p>
+      <ExampleTableReadOnly />
+      <hr />
+
+      <h2>Advanced wheel</h2>
+      <ExampleWheelAdvanced />
+      <hr />
+      <h2>Advanced Table example</h2>
+      <ExampleTableAdvanced />
     </div>
   );
 };

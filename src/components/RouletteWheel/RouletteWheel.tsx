@@ -26,7 +26,7 @@ export const RouletteWheel: React.FC<IRouletteWheelProps> = ({
   function doSpin() {
     const listElement = numberListRef.current;
 
-    if (listElement == null) return;
+    if (listElement == null || winningBet === '-1') return;
 
     listElement.removeAttribute('data-spintoindex');
 
@@ -41,7 +41,7 @@ export const RouletteWheel: React.FC<IRouletteWheelProps> = ({
       listElement.style.setProperty('--wheel-rotation', calculateSpinToRotation(layoutType, betIndex, spinLaps) + 'deg');
 
       setTimeout(() => {
-        onSpinningEnd?.();
+        onSpinningEnd?.(winningBet);
       }, spinDuration * 1000);
     }, 100);
 
