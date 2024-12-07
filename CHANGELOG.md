@@ -13,6 +13,7 @@ The changes made from the original repo.
 - Numbers on the wheel are in the official order. [See more.](https://en.wikipedia.org/wiki/Roulette#:~:text=the%20winning%20number.-,Roulette%20wheel%20number%20sequence,-%5Bedit%5D)
 - `readOnly` prop for `RouletteTable` to disable betting while the wheel is spinning.
 - Extra `Typescript` support.
+- Extra `utility` functions.
 - More `examples` with code samples.
 
 - ## UI Feature

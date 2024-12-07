@@ -31,6 +31,7 @@ It is **not the first but it is the best** open source React casino roulette. No
     - 🎲 [RouletteTable Props](#roulettetable-props)
     - ⚙ [useRoulette hook](#useroulette-hook)
     - 💰 [ChipList](#chiplist)
+    - 📖 [Utils functions](#utils-functions)
 - [FAQ](#faq)
 - [Credits](#credits)
 
@@ -244,7 +245,14 @@ export type RouletteLayoutType = 'european' | 'american';
 | budget | `number` | `-1` | The total budget available for betting. If specified every chip that is `strictly greater` than the budget will be disabled.  |  |
 | chipSize | `number` | `64` | The size of the chips in pixels. |  |
 
-
+### Utils functions
+| **Prop Name** | **Type**  | **Description** |
+|---|---|---|
+| `findChipIcon` | `(bet: BetType, chips: Chips) => ImgHTMLAttributes<any>['src']` |Returns the image for a chip based of a bet. |
+| `getWheelNumbers` | `() => number[]` | Returns the numbers for the roulette wheel in the official order. [See details](https://en.wikipedia.org/wiki/Roulette#:~:text=the%20winning%20number.-,Roulette%20wheel%20number%20sequence,-%5Bedit%5D). |
+| `getNumberCount` | `(layoutType: RouletteLayoutType) => number` | Returns `38` for `american`, otherwise `37`. |
+| `calculatePayout` | `(betId: BetId) => number` |A function that calculates the payout for a given bet. For a single number will get 36 times back.<br>Example betting 10$ will reward you with 360$. But since you payed 10$ for the bet, the total profit will be only 350$. |
+| `getPayloadFromBetId` | `(betId: string) => string[]` |Returns the list of numbers that are covered by a bet. |
 
 ## FAQ
 
