@@ -1,11 +1,15 @@
 import { useMemo, useState } from "react";
-import { BetId, BetModes, Bets, IRouletteTableProps } from "../types";
+import { BetId, Bets, IUseRouletteResult } from "../types";
 import { calculatePayout, getPayloadFromBetId } from "../helpers/payoutCalculator";
 
-export function useRoulette() {
-    const [bets, setBets] = useState<Bets>({} as Bets);
+export function useRoulette(): IUseRouletteResult {
+    const [bets, setBets] = useState<IUseRouletteResult['bets']>({} as Bets);
 
-    const total = useMemo<number>(() => {
+    const hasBets = useMemo<IUseRouletteResult['hasBets']>(() => {
+        return Object.keys(bets || {}).length > 0;
+    }, [bets])
+
+    const total = useMemo<IUseRouletteResult['total']>(() => {
 
         let sum = 0;
         for (let k in bets)
@@ -15,7 +19,7 @@ export function useRoulette() {
 
     }, [bets]);
 
-    const onBet = (amount: number | string, mode: BetModes = 'add'): IRouletteTableProps['onBet'] => {
+    const onBet: IUseRouletteResult['onBet'] = (amount, mode = 'add') => {
         return ({ payload, id }) => {
 
             const value = Number(amount);
@@ -50,11 +54,11 @@ export function useRoulette() {
         }
     };
 
-    const clearBets = () => {
+    const clearBets: IUseRouletteResult['clearBets'] = () => {
         setBets({} as Bets)
     }
 
-    const removeBet = (betId: BetId) => {
+    const removeBet: IUseRouletteResult['removeBet'] = (betId: BetId) => {
         setBets((prevState) => {
             const state = JSON.parse(JSON.stringify(prevState));
 
@@ -64,7 +68,27 @@ export function useRoulette() {
         });
     }
 
-    const updateBets = (newBets: { [betId in BetId]: number }) => {
+    const updateBet: IUseRouletteResult['updateBet'] = (betId, amount) => {
+        setBets(prevState => {
+            const state: Bets = JSON.parse(JSON.stringify(prevState));
+            if (betId in state) {
+                if (amount <= 0)
+                    delete state[betId];
+                else
+                    state[betId].amount = amount;
+            } else {
+                state[betId] = {
+                    amount: amount,
+                    payload: getPayloadFromBetId(betId as string),
+                    payoutScale: calculatePayout(betId)
+                };
+            }
+
+            return state;
+        });
+    }
+
+    const updateAllBets: IUseRouletteResult['updateAllBets'] = (newBets) => {
         const obj = {} as Bets;
 
         for (let betId in newBets)
@@ -79,6 +103,6 @@ export function useRoulette() {
         setBets(obj);
     }
 
-    return { bets, total, onBet, updateBets, clearBets, removeBet };
+    return { bets, hasBets, total, onBet, updateBet, updateAllBets, clearBets, removeBet };
 
 }

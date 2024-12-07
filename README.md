@@ -201,7 +201,7 @@ export type RouletteLayoutType = 'european' | 'american';
 | automaticSpinning | `boolean` | `true` | Used only as an *idle animation*, works separatly from ball spinning. By default is set to `true` so it spins the wheel continuously. If set to `false`, the Wheel will only spin when triggered by a user interaction or other event. |  |
 | spinLaps | `number` | `3` | The number of complete rotations the wheel should make before stopping. |  |
 | spinDuration | `number` | `3` | The duration of the spin animation in seconds. |  |
-| spinEaseFunction | `React.CSSProperties['transitionTimingFunction']` | `'ease-out'` | The easing function to be used for the spin animation. This property controls the acceleration and deceleration of the spin. Common easing functions include `'linear'`, `'ease-in'`, `'ease-out'`, and [others](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function). |  |
+| spinEaseFunction | `transition-timing-function` | `'ease-out'` | The easing function to be used for the spin animation. This property controls the acceleration and deceleration of the spin. Common easing functions include `'linear'`, `'ease-in'`, `'ease-out'`, and [others](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function). |  |
 
 ---
 
@@ -221,14 +221,16 @@ export type RouletteLayoutType = 'european' | 'american';
 
 ### useRoulette hook
 
-| **Prop Name** | **Type** | **Default** | **Description** |  **Required** |
-|---|---|---|---|---|
-| bets | `Bets` | `{}` | See `Bets` type for [details](#bets). | Required |
-| onBet | `(amount: number \| string, mode: BetModes) => (payload: string[], id: BetId) => void` | - | A callback function that is triggered when a bet is placed. It takes two arguments: `amount` and `mode`.<br/><br>* **amount:** The amount to be added, subtracted, or set for the bet.<br>* **mode:** The operation to be performed on the bet, can be one of: 'add', 'set', or 'remove'.<br/><br>The callback function returns another function that needs to be sent to the `RouletteTable`. | Required |
+| **Prop Name** | **Type** | **Default** | **Description** |
+|---|---|---|---|
+| bets | `Bets` | `{}` | See `Bets` type for [details](#bets). |
+| onBet | `(amount: number \| string, mode: BetModes) => (payload: string[], id: BetId) => void` | - | A callback function that is triggered when a bet is placed. It takes two arguments: `amount` and `mode`.<br/><br>* **amount:** The amount to be added, subtracted, or set for the bet.<br>* **mode:** The operation to be performed on the bet, can be one of: 'add', 'set', or 'remove'.<br/><br>The callback function returns another function that needs to be sent to the `RouletteTable`. |
+| hasBets | `boolean` | `false` | Returns whether there are any bets placed. |
 | total | `number` | `0` | The sum of all bets. |
-| updateBets | `(newBets: { [betId in BetId]: number }) => void` | - | A function will overrides the list of bets.<br>**Only** need to specify the `betId` and `amount`, the rest of data will be calculated, such as `payload` and `payoutScale`. |
-| clearBets | `() => void` | - | Removes all bets. |
+| updateBet | `(betId: BetId, amount: number) => void` | - | Sets the amount of **one bet**. If amount is `0 or below` the bet will be removed. |
+| updateAllBets | `(newBets: { [betId in BetId]: number }) => void` | - | A function will overrides **all the bets**.<br>**Only** need to specify the `betId` and `amount`, the rest of data will be calculated, such as `payload` and `payoutScale`. |
 | removeBet | `(betId: BetId) => void` | - | Removes a specific bet from the list. |
+| clearBets | `() => void` | - | Removes all bets. |
 
 ---
 
