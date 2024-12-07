@@ -59,3 +59,14 @@ export interface IRouletteWheelProps {
     spinDuration?: number,
     spinEaseFunction?: React.CSSProperties['transitionTimingFunction']
 }
+
+export interface IUseRouletteResult {
+    bets: Bets;
+    hasBets: boolean;
+    total: number;
+    onBet: (amount: number | string, mode?: BetModes) => IRouletteTableProps['onBet'];
+    updateBet: (betId: BetId, amount: number) => void;
+    updateAllBets: (newBets: { [betId in BetId]: number }) => void;
+    removeBet: (betId: BetId) => void;
+    clearBets: () => void;
+}

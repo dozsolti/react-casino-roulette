@@ -14,7 +14,7 @@ const chips = {
 }
 
 function ExampleTableAdvanced() {
-  const { bets, total, onBet, updateBets, clearBets, removeBet } = useRoulette();
+  const { bets, hasBets, total, onBet, updateBet, updateAllBets, clearBets, removeBet } = useRoulette();
 
   const [selectedChip, setSelectedChip] = useState(Object.keys(chips)[0]);
   const [mode, setMode] = useState('add')
@@ -33,7 +33,7 @@ function ExampleTableAdvanced() {
       "EVEN": 20,
       'ODD': 0
     }
-    updateBets(SAMPLE_BETS)
+    updateAllBets(SAMPLE_BETS)
   }
 
   return (
@@ -45,14 +45,15 @@ function ExampleTableAdvanced() {
         onChipPressed={setSelectedChip} />
       <pre>Total: ${total}</pre>
 
-      <pre>Bets:<br />{(
+      {hasBets ? (<pre>Bets:<br />{(
         Object.entries(bets).map(([betId, data]) => `   ${betId}: ${JSON.stringify(data)}`).join('\n')
-      )}</pre>
+      )}</pre>) : null}
 
       <div className='buttons'>
         <button onClick={toggleModes}>Switch to {mode === 'add' ? 'remove' : 'add'} chips</button>
         <button onClick={clearBets}>Clear</button>
         <button onClick={() => removeBet('EVEN')}>Remove bets from "EVEN"</button>
+        <button onClick={() => updateBet('RED', 100)}>Set "RED" to 100</button>
         <button onClick={loadBets}>Load saved bets</button>
       </div>
     </>

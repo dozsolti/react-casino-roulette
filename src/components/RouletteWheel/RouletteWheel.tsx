@@ -88,12 +88,3 @@ export const RouletteWheel: React.FC<IRouletteWheelProps> = ({
     </div>
   );
 };
-
-RouletteWheel.defaultProps = {
-  onSpinningEnd: () => undefined,
-  layoutType: 'european',
-  spinLaps: 3,
-  spinDuration: 3,
-  automaticSpinning: true,
-  spinEaseFunction: 'ease-out',
-};

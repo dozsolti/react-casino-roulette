@@ -14,10 +14,10 @@ const chips = {
 }
 
 function ExampleTableReadOnly() {
-  const { bets, updateBets } = useRoulette();
+  const { bets, updateAllBets } = useRoulette();
 
   useEffect(() => {
-    updateBets({ 0: 1, 'EVEN': 25, "14-15": 10 })
+    updateAllBets({ 0: 1, 'EVEN': 25, "14-15": 10 })
   }, [])
 
   return (

@@ -188,10 +188,3 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
     </RouletteTableContext.Provider>
   );
 };
-
-RouletteTable.defaultProps = {
-  isDebug: false,
-  layoutType: 'european',
-  readOnly: false,
-  height: '368px'
-};

@@ -35,7 +35,3 @@ export const Chip: FC<IChipProps> = ({ position, icon, bet }) => {
     </div >
   );
 };
-
-Chip.defaultProps = {
-  icon: undefined,
-};

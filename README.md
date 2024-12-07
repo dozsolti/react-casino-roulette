@@ -31,6 +31,7 @@ It is **not the first but it is the best** open source React casino roulette. No
     - 🎲 [RouletteTable Props](#roulettetable-props)
     - ⚙ [useRoulette hook](#useroulette-hook)
     - 💰 [ChipList](#chiplist)
+    - 📖 [Utils functions](#utils-functions)
 - [FAQ](#faq)
 - [Credits](#credits)
 
@@ -201,7 +202,7 @@ export type RouletteLayoutType = 'european' | 'american';
 | automaticSpinning | `boolean` | `true` | Used only as an *idle animation*, works separatly from ball spinning. By default is set to `true` so it spins the wheel continuously. If set to `false`, the Wheel will only spin when triggered by a user interaction or other event. |  |
 | spinLaps | `number` | `3` | The number of complete rotations the wheel should make before stopping. |  |
 | spinDuration | `number` | `3` | The duration of the spin animation in seconds. |  |
-| spinEaseFunction | `React.CSSProperties['transitionTimingFunction']` | `'ease-out'` | The easing function to be used for the spin animation. This property controls the acceleration and deceleration of the spin. Common easing functions include `'linear'`, `'ease-in'`, `'ease-out'`, and [others](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function). |  |
+| spinEaseFunction | `transition-timing-function` | `'ease-out'` | The easing function to be used for the spin animation. This property controls the acceleration and deceleration of the spin. Common easing functions include `'linear'`, `'ease-in'`, `'ease-out'`, and [others](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function). |  |
 
 ---
 
@@ -221,14 +222,16 @@ export type RouletteLayoutType = 'european' | 'american';
 
 ### useRoulette hook
 
-| **Prop Name** | **Type** | **Default** | **Description** |  **Required** |
-|---|---|---|---|---|
-| bets | `Bets` | `{}` | See `Bets` type for [details](#bets). | Required |
-| onBet | `(amount: number \| string, mode: BetModes) => (payload: string[], id: BetId) => void` | - | A callback function that is triggered when a bet is placed. It takes two arguments: `amount` and `mode`.<br/><br>* **amount:** The amount to be added, subtracted, or set for the bet.<br>* **mode:** The operation to be performed on the bet, can be one of: 'add', 'set', or 'remove'.<br/><br>The callback function returns another function that needs to be sent to the `RouletteTable`. | Required |
+| **Prop Name** | **Type** | **Default** | **Description** |
+|---|---|---|---|
+| bets | `Bets` | `{}` | See `Bets` type for [details](#bets). |
+| onBet | `(amount: number \| string, mode: BetModes) => (payload: string[], id: BetId) => void` | - | A callback function that is triggered when a bet is placed. It takes two arguments: `amount` and `mode`.<br/><br>* **amount:** The amount to be added, subtracted, or set for the bet.<br>* **mode:** The operation to be performed on the bet, can be one of: 'add', 'set', or 'remove'.<br/><br>The callback function returns another function that needs to be sent to the `RouletteTable`. |
+| hasBets | `boolean` | `false` | Returns whether there are any bets placed. |
 | total | `number` | `0` | The sum of all bets. |
-| updateBets | `(newBets: { [betId in BetId]: number }) => void` | - | A function will overrides the list of bets.<br>**Only** need to specify the `betId` and `amount`, the rest of data will be calculated, such as `payload` and `payoutScale`. |
-| clearBets | `() => void` | - | Removes all bets. |
+| updateBet | `(betId: BetId, amount: number) => void` | - | Sets the amount of **one bet**. If amount is `0 or below` the bet will be removed. |
+| updateAllBets | `(newBets: { [betId in BetId]: number }) => void` | - | A function will overrides **all the bets**.<br>**Only** need to specify the `betId` and `amount`, the rest of data will be calculated, such as `payload` and `payoutScale`. |
 | removeBet | `(betId: BetId) => void` | - | Removes a specific bet from the list. |
+| clearBets | `() => void` | - | Removes all bets. |
 
 ---
 
@@ -242,7 +245,14 @@ export type RouletteLayoutType = 'european' | 'american';
 | budget | `number` | `-1` | The total budget available for betting. If specified every chip that is `strictly greater` than the budget will be disabled.  |  |
 | chipSize | `number` | `64` | The size of the chips in pixels. |  |
 
-
+### Utils functions
+| **Prop Name** | **Type**  | **Description** |
+|---|---|---|
+| `findChipIcon` | `(bet: BetType, chips: Chips) => ImgHTMLAttributes<any>['src']` |Returns the image for a chip based of a bet. |
+| `getWheelNumbers` | `() => number[]` | Returns the numbers for the roulette wheel in the official order. [See details](https://en.wikipedia.org/wiki/Roulette#:~:text=the%20winning%20number.-,Roulette%20wheel%20number%20sequence,-%5Bedit%5D). |
+| `getNumberCount` | `(layoutType: RouletteLayoutType) => number` | Returns `38` for `american`, otherwise `37`. |
+| `calculatePayout` | `(betId: BetId) => number` |A function that calculates the payout for a given bet. For a single number will get 36 times back.<br>Example betting 10$ will reward you with 360$. But since you payed 10$ for the bet, the total profit will be only 350$. |
+| `getPayloadFromBetId` | `(betId: string) => string[]` |Returns the list of numbers that are covered by a bet. |
 
 ## FAQ
 
