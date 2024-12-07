@@ -1,0 +1,11 @@
+.roulette-chips-list {
+    display: flex;
+    justify-content: center;
+}
+
+.roulette-chips-list {
+    list-style: none;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+

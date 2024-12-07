@@ -10,12 +10,12 @@ interface IZeroBetsProps {
 }
 
 export const ZeroBets: FC<IZeroBetsProps> = ({ layoutType }) => {
-  const { bets, chipIcons } = useContext(RouletteTableContext);
+  const { bets, chips } = useContext(RouletteTableContext);
 
   return (
     <>
-      <SingleZero layoutType={layoutType} bets={bets} chipIcons={chipIcons} />
-      {layoutType == 'american' && <DoubleZero layoutType={layoutType} bets={bets} chipIcons={chipIcons} />}
+      <SingleZero layoutType={layoutType} bets={bets} chips={chips} />
+      {layoutType == 'american' && <DoubleZero layoutType={layoutType} bets={bets} chips={chips} />}
     </>
   );
 };

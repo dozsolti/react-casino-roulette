@@ -1,0 +1,135 @@
+/* #region all */
+.item-hover,
+.zero-item,
+.red-item,
+.black-item,
+.column-item,
+.doz-item,
+.outside-section {
+    transition: background-color 0.2s ease;
+
+    color: #fff;
+    user-select: none;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* #endregion */
+
+/* #region First section - items */
+.red-item,
+.black-item,
+.column-item,
+.zero-item {
+
+    border-left: 3px solid #fff;
+    border-top: 3px solid #fff;
+
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+
+    text-align: center;
+}
+
+.red-item,
+.black-item,
+.column-item {
+    height: 33.3%;
+    width: 7.14%;
+}
+
+.item-hover .value,
+.zero-item .value,
+.red-item .value,
+.black-item .value {
+    transform: rotate(-90deg);
+}
+
+.roulette-table-container:not(.read-only) .item-hover,
+.roulette-table-container:not(.read-only) .zero-item:hover,
+.roulette-table-container:not(.read-only) .red-item:hover,
+.roulette-table-container:not(.read-only) .black-item:hover {
+    background-color: var(--hover);
+    cursor: pointer;
+}
+
+.red-item {
+    background-color: var(--red);
+}
+
+.black-item {
+    background: var(--black);
+}
+
+/* #endregion */
+
+/* #region First section left - zeros */
+.zero-item:first-child {
+    border-bottom: 3px solid #fff;
+}
+
+.zero-item {
+    height: 50%;
+    width: 7.14%;
+}
+
+.zero-item.single-zero {
+    height: 100%;
+}
+
+/* #endregion */
+
+/* #region First section right - columns */
+.column-item {
+    border-right: 3px solid #fff;
+}
+
+.column-item[data-action="1ST_COLUMN"] {
+    border-bottom: 3px solid #fff;
+}
+
+/* #endregion */
+
+/* #region Second section */
+.doz-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    border: solid #fff;
+    text-align: center;
+    height: 100%;
+}
+
+/* #endregion */
+
+/* #region Third line */
+.outside-section {
+    flex: 1;
+    border: solid #fff;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rhomb-red, .rhomb-black{
+    display: inline-block;
+    width: var(--roulette-romb-size);
+    aspect-ratio: 1 / 1;
+    max-width: 75%;
+
+    border: 2px solid white;
+    transform: rotate(45deg);
+}
+.rhomb-red {
+    background-color: var(--red);
+}
+
+.rhomb-black {
+    background-color: #000;
+}
+
+/* #endregion */

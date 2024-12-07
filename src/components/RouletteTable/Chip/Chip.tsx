@@ -2,7 +2,7 @@ import React from 'react';
 import type { FC } from 'react';
 
 import './Chip.css';
-import { IRouletteTableProps } from '../RouletteTable';
+import { BetType, IRouletteTableProps } from '../../../types';
 
 export interface IChipProps {
   position:
@@ -18,7 +18,7 @@ export interface IChipProps {
   | 'left-top'
   | 'right-center';
   icon?: any;
-  bet?: IRouletteTableProps['bets'][string];
+  bet?: BetType;
 }
 
 export const Chip: FC<IChipProps> = ({ position, icon, bet }) => {

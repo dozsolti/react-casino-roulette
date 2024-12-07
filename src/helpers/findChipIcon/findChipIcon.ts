@@ -1,10 +1,10 @@
-import { BetType, ChipIcons } from '../../types';
+import { BetType, Chips } from '../../types';
 
-export const findChipIcon = (bet: BetType, chipIcons: ChipIcons) => {
+export const findChipIcon = (bet: BetType, chips: Chips) => {
   if (!bet) return null;
 
   const icons = Object
-    .entries(chipIcons)
+    .entries(chips)
     .map(x => ({ minAmount: Number(x[0]), icon: x[1] }));
 
   if (icons.length == 0) return null;

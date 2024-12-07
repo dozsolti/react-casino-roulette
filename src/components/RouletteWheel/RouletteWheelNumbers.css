@@ -1,0 +1,41 @@
+.roulette-wheel-bet-number {
+    width: 32px;
+    height: 175px;
+    display: inline-block;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: calc(50% - (32px/2));
+    transform-origin: 50% 100%;
+    background-color: transparent;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-top: 175px solid #ff0000;
+    box-sizing: border-box;
+}
+
+.roulette-wheel-bet-number[data-bet="0"],
+.roulette-wheel-bet-number[data-bet="00"] {
+    border-top-color: #008000;
+}
+.roulette-wheel-bet-number[data-bet="2"],
+.roulette-wheel-bet-number[data-bet="4"],
+.roulette-wheel-bet-number[data-bet="6"],
+.roulette-wheel-bet-number[data-bet="8"],
+.roulette-wheel-bet-number[data-bet="10"],
+.roulette-wheel-bet-number[data-bet="11"],
+.roulette-wheel-bet-number[data-bet="13"],
+.roulette-wheel-bet-number[data-bet="15"],
+.roulette-wheel-bet-number[data-bet="17"],
+.roulette-wheel-bet-number[data-bet="20"],
+.roulette-wheel-bet-number[data-bet="22"],
+.roulette-wheel-bet-number[data-bet="24"],
+.roulette-wheel-bet-number[data-bet="26"],
+.roulette-wheel-bet-number[data-bet="28"],
+.roulette-wheel-bet-number[data-bet="29"],
+.roulette-wheel-bet-number[data-bet="31"],
+.roulette-wheel-bet-number[data-bet="33"],
+.roulette-wheel-bet-number[data-bet="35"]
+{
+    border-top-color: #000;
+}

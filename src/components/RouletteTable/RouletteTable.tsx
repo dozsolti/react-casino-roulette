@@ -14,34 +14,22 @@ import { hasOwn } from '../../utills';
 import { classNames } from '../../libs';
 
 import './RouletteTable.css';
-import { BetType, ChipIcons, RouletteLayoutType } from '../../types';
-
-export interface IOnBetParams {
-  bet: keyof typeof ACTION_TYPES;
-  payload: string[];
-  id: string;
-}
-
-export interface IRouletteTableProps {
-  onBet: (params: IOnBetParams) => void;
-  bets: { [key: string]: BetType };
-  isDebug?: boolean;
-  layoutType?: RouletteLayoutType;
-  chipIcons: ChipIcons;
-}
+import './RouletteTableCells.css';
+import { BetId, IRouletteTableProps } from '../../types';
 
 export const RouletteTable: FC<IRouletteTableProps> = ({
   onBet,
   bets,
-  chipIcons,
+  chips,
   layoutType = 'european',
-  
+  readOnly = false,
+  height = '368px',
   isDebug,
 }) => {
   const tableRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (tableRef.current === null) {
+    if (tableRef.current === null || readOnly) {
       return;
     }
 
@@ -103,7 +91,7 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
       onBet({
         bet: action as keyof typeof ACTION_TYPES,
         payload,
-        id: payloadData,
+        id: payloadData as BetId,
       });
     };
 
@@ -114,7 +102,7 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
     return () => {
       tableRefCurrent?.removeEventListener('click', listener);
     };
-  }, [onBet]);
+  }, [onBet, readOnly]);
 
   const doHighlight = (betId: string) => {
     if (tableRef.current === null) {
@@ -136,7 +124,7 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
 
       const firstHighlight = toHighlight?.[0];
 
-      if (firstHighlight === undefined) {
+      if (firstHighlight === undefined || readOnly) {
         return;
       }
 
@@ -161,18 +149,28 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
         doHighlight(element);
       });
     },
-    [],
+    [readOnly],
   );
 
+  const containerStyles = useMemo(() => {
+    return {
+      height,
+      fontSize: `calc(${height} * 0.05)`,
+      '--roulette-romb-size': `calc(${height} * 0.09)`,
+    }
+  }, [height])
+
   const contextValue = useMemo(
-    () => ({ bets, chipIcons, onBetCatcherHover: handleBetCatcherHover }),
+    () => ({ bets, chips, onBetCatcherHover: handleBetCatcherHover }),
     [bets, handleBetCatcherHover],
   );
 
   return (
     <RouletteTableContext.Provider value={contextValue}>
       <div
-        className={classNames('roulette-table-container', { debug: isDebug })}
+        className={classNames('roulette-table-container', { debug: isDebug, 'read-only': readOnly })}
+        style={containerStyles}
+
         ref={tableRef}
       >
         <section className="roulette-table-container-first">
@@ -194,4 +192,6 @@ export const RouletteTable: FC<IRouletteTableProps> = ({
 RouletteTable.defaultProps = {
   isDebug: false,
   layoutType: 'european',
+  readOnly: false,
+  height: '368px'
 };

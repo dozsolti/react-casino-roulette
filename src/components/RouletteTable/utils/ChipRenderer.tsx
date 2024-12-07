@@ -2,11 +2,12 @@ import React, { ReactNode, useContext } from "react";
 import { findChipIcon, shouldRenderChip } from "../../../helpers";
 import { Chip } from "../Chip";
 import { RouletteTableContext } from "../../../context";
+import { BetId } from "../../../types";
 
 interface ChipRendererProps {
     cName: string,
     action: string,
-    highlight: string,
+    highlight: any, // Refactor this later. In some places it uses STREET.
     style?: any,
     chipPosition?: any,
     hideChips?: boolean,
@@ -14,9 +15,9 @@ interface ChipRendererProps {
 }
 
 export function ChipRenderer({ cName, action, highlight, style = {}, chipPosition = '', hideChips = false, betLabel = '' }: ChipRendererProps) {
-    const { onBetCatcherHover, bets, chipIcons } = useContext(RouletteTableContext);
+    const { onBetCatcherHover, bets, chips } = useContext(RouletteTableContext);
 
-    const betIcon = findChipIcon(bets[highlight], chipIcons)
+    const betIcon = findChipIcon(bets[highlight], chips)
 
     if (betLabel)
         return (

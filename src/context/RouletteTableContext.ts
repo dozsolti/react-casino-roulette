@@ -1,17 +1,16 @@
 import { createContext } from 'react';
 import type { MouseEvent } from 'react';
 
-import type { IRouletteTableProps } from '../components/RouletteTable';
-import { ChipIcons } from '../types';
+import { Bets, Chips } from '../types';
 
 export interface IRouletteTableContextProps {
-  bets: IRouletteTableProps['bets'];
+  bets: Bets;
   onBetCatcherHover: (event: MouseEvent<HTMLDivElement>) => void;
-  chipIcons: ChipIcons;
+  chips: Chips;
 }
 
 export const RouletteTableContext = createContext({
-  bets: {},
+  bets: {} as Bets,
   onBetCatcherHover: () => null,
-  chipIcons: {},
+  chips: {},
 } as IRouletteTableContextProps);

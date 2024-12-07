@@ -31,7 +31,8 @@
     "build": "webpack",
     "prepare": "npm run build",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
     "react": ">=17.0.0",

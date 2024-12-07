@@ -16,7 +16,7 @@ import {
 } from '../../../helpers';
 import { ACTION_TYPES } from '../../../constants';
 import { ChipRenderer } from '../utils/ChipRenderer';
-import { RouletteLayoutType } from '../../../types';
+import { BetId, RouletteLayoutType } from '../../../types';
 
 const NUMBERS = Array.from({ length: 36 }, (_, i) => i + 1);
 
@@ -25,7 +25,7 @@ interface INumberBetsProps {
 }
 
 export const NumberBets: FC<INumberBetsProps> = ({ layoutType }) => {
-  const { bets, chipIcons } = useContext(RouletteTableContext);
+  const { bets, chips } = useContext(RouletteTableContext);
 
   return (
     <>
@@ -82,7 +82,7 @@ export const NumberBets: FC<INumberBetsProps> = ({ layoutType }) => {
           <div className="value">{number}</div>
 
           {shouldRenderChip(`${number}`, bets) && (
-            <Chip position="center" bet={bets[number]} icon={findChipIcon(bets[number], chipIcons)} />
+            <Chip position="center" bet={bets[number]} icon={findChipIcon(bets[number], chips)} />
           )}
 
           {/* Chips between two numbers horizontally - 11-14 - split */}
