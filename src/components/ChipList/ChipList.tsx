@@ -31,8 +31,3 @@ export const ChipList: React.FC<IChipListProps> = ({
         </ul>
     );
 };
-
-ChipList.defaultProps = {
-    budget: -1,
-    chipSize: 64
-};
